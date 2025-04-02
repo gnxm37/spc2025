@@ -2,4 +2,7 @@ HELLO
 GOODBYE
 HELLO AGAIN
 GOODBYE AGAIN
-ZZ
+!!!
+???
+!!!
+aa
