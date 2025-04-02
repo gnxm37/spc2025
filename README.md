@@ -1,9 +1,1 @@
-HELLO
-GOODBYE
-HELLO AGAIN
-GOODBYE AGAIN
-!!!
-???
-!!!
-aaa
-aaa
+HI I'M YUJIN
