@@ -6,73 +6,62 @@
     <link rel="stylesheet" href="./netflix.css">
 </head>
 <body>
-    <ul>
-        <li>
-            <div>
+    <div class="container">
+        <div class="nav">
+            <div class="nav-top">
                 <img src="https://help.nflxext.com/helpcenter/OneTrust/oneTrust_production/consent/87b6a5c0-0104-4e96-a291-092c11350111/01938dc4-59b3-7bbc-b635-c4131030e85f/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
-                width="100px" height="50px">
+                width="100px" height="50px" alt="넷플릭스 메인사진">
+                <div>
+                    <select id="language">
+                        <option value="korean">한국어</option>
+                        <option value="english">English</option>
+                    </select>
+                    <form>
+                        <button type="submit" id="login">로그인</button>
+                    </form>
+                </div>
             </div>
-        </li>
-        <li>
-            <div id="language">
-                <select id="option">
-                    <option value="korean">한국어</option>
-                    <option value="english">English</option>
-                  </select>
-            </div>
-        </li>
-        <li>
-            <div id="login">
-                로그인
-            </div>
-        </li>
-    </ul>    
-
-    <div id="main">
-        <h1>영화, 시리즈 등을 무제한으로</h1><br>
-        5,500원으로 시작하세요. 멤버십은 언제든지 해지 가능합니다.<br>
-        시청할 준비가 되셨나요? 멤버십을 등록하거나 재시작하려면 이메일 주소를 입력하세요.<br>
-    
-        <div id="email-address">
-            <div><h2>이메일 주소</h2></div>  <!--이메일 주소-->
+            
+            <h1>영화, 시리즈 등을 <br> 무제한으로</h1>
+            <h2>5,500원으로 시작하세요. 멤버십은 언제든지 해지 가능합니다.</h2>
+            <h3>시청할 준비가 되셨나요? 멤버십을 등록하거나 재시작하려면 이메일 주소를 입력하세요.</h3>
+        
+            <form>
+                <input type="email" id="email" placeholder="&nbsp; 이메일 주소">  <!--이메일 주소-->
+                <button type="submit" id="start">시작하기 &nbsp; > </button>  <!--시작하기 버튼-->
+            </form>
+        </div>
+        <div class="price">
             <div>
-                <a href="">시작하기 > </a>
-            </div>  <!--시작하기기-->
-        </div>
-    </div>
-    <div class="price">
-        <div>
-            <p>5500원이면 만날 수 있는 넷플릭스. <br>
-            가장 경제적인 광고형 멤버십을 이용해 보세요.
-            </p>
+                <p>5500원이면 만날 수 있는 넷플릭스. <br>
+                가장 경제적인 광고형 멤버십을 이용해 보세요.
+                </p>
+            </div>
+            <button>자세히 알아보기</button>
         </div>
         <div>
-            자세히 알아보기
+            <div><h2><p style="color:white">지금 뜨는 콘텐츠</p></h2></div>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <img src="https://occ-0-325-988.1.nflxso.net/dnm/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABWTM77d-Us_-_iFkO9XPjG4WfAIUfrhobEsDDcTZ7Zs5WnsKMa4fN9DwTikl4gupBjm77GL8GhajKr4KD8UeMe4A3rwifeqkX8N9gIJFzEH6Rs6ClCjdQp4oRBxa2d3r_q1i.webp?r=3ab" alt="폭싹 속았수다">
+                </div>
+                <div class="grid-item">
+                    <img src="https://occ-0-325-988.1.nflxso.net/dnm/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABdzn2gQbZv9G0t20ApR29BBJLWd0I2o7L4tL5zhCU4BhaVs_2dnQ7qeDQk7pTvBnHOz2OkfTwCfR0U_sczlK-Sv01U8y5-NY1GcfKiHwiv3gWYDZTplwNSaOicr7HPNPlgRd.webp?r=74f" alt="중증외상환자">
+                </div>
+                <div class="grid-item">
+                    <img src="https://occ-0-325-988.1.nflxso.net/dnm/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABWmoHUf-K3wCittR6NZcls5AhTmwAcidMEC24YsgMKlFBSrRWVsuBPyFxCaf2iKWmqvje4eyOfLf_T-4vLVlWMYS7L9Zft60kCg.webp?r=8c0" alt="소방관">
+                </div>
+                <div class="grid-item">
+                    <img src="https://occ-0-325-988.1.nflxso.net/dnm/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABSkmoeSfcVyUpWbxIGdXkHfa0K7C8T15vaQeqwuwb7SRM6UTZ0AKLdszjS6lNp12y_FeSHpxQaAofxQnGA33Y8wh3fowWHR_SsdQ5yYbL_sPKvy9hffzDD2skj2dpCh4jUri.webp?r=bee" alt="계시록">
+                </div>
+                <div class="grid-item">
+                    <img src="https://occ-0-325-988.1.nflxso.net/dnm/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABWtVJQ8lXmzsqtzZeXVeiNdq7YFJuOufpCUpRqO0j50csA8JyS80GTAAAn9b48Rv6niKjUk5OzOLzJISqvyAu6DDcYqqHcod78k.webp?r=305" alt="약한 영웅">
+                </div>
+                <div class="grid-item">
+                    <img src="https://occ-0-325-988.1.nflxso.net/dnm/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABbKF3C1hFhqTYnfocym0UynLoSM5AuvRU1VBugyvXN0jeJZgqaVdd5y4A-IBtN8EQQyZhrCr6X7qTlemNP9R-rHAwIUszBvMAsc.webp?r=ced" alt="나혼자만 레벨업">
+                </div>
+            </div>  
         </div>
-    </div>
-    <div>
-        <div><h2><p style="color:white">지금 뜨는 콘텐츠</p></h2></div>
-        <div class="grid-container">
-            <div class="grid-item">
-                <img src="https://occ-0-325-988.1.nflxso.net/dnm/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABWTM77d-Us_-_iFkO9XPjG4WfAIUfrhobEsDDcTZ7Zs5WnsKMa4fN9DwTikl4gupBjm77GL8GhajKr4KD8UeMe4A3rwifeqkX8N9gIJFzEH6Rs6ClCjdQp4oRBxa2d3r_q1i.webp?r=3ab" alt="폭삭 속았수다">
-            </div>
-            <div class="grid-item">
-                <img src="https://occ-0-325-988.1.nflxso.net/dnm/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABdzn2gQbZv9G0t20ApR29BBJLWd0I2o7L4tL5zhCU4BhaVs_2dnQ7qeDQk7pTvBnHOz2OkfTwCfR0U_sczlK-Sv01U8y5-NY1GcfKiHwiv3gWYDZTplwNSaOicr7HPNPlgRd.webp?r=74f" alt="중증외상환자">
-            </div>
-            <div class="grid-item">
-                <img src="
-                https://occ-0-325-988.1.nflxso.net/dnm/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABWmoHUf-K3wCittR6NZcls5AhTmwAcidMEC24YsgMKlFBSrRWVsuBPyFxCaf2iKWmqvje4eyOfLf_T-4vLVlWMYS7L9Zft60kCg.webp?r=8c0" alt="소방관">
-            </div>
-            <div class="grid-item">
-                <img src="https://occ-0-325-988.1.nflxso.net/dnm/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABSkmoeSfcVyUpWbxIGdXkHfa0K7C8T15vaQeqwuwb7SRM6UTZ0AKLdszjS6lNp12y_FeSHpxQaAofxQnGA33Y8wh3fowWHR_SsdQ5yYbL_sPKvy9hffzDD2skj2dpCh4jUri.webp?r=bee" alt="계시록">
-            </div>
-            <div class="grid-item">
-                <img src="https://occ-0-325-988.1.nflxso.net/dnm/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABWtVJQ8lXmzsqtzZeXVeiNdq7YFJuOufpCUpRqO0j50csA8JyS80GTAAAn9b48Rv6niKjUk5OzOLzJISqvyAu6DDcYqqHcod78k.webp?r=305" alt="약한 영웅">
-            </div>
-            <div class="grid-item">
-                <img src="https://occ-0-325-988.1.nflxso.net/dnm/api/v6/mAcAr9TxZIVbINe88xb3Teg5_OA/AAAABbKF3C1hFhqTYnfocym0UynLoSM5AuvRU1VBugyvXN0jeJZgqaVdd5y4A-IBtN8EQQyZhrCr6X7qTlemNP9R-rHAwIUszBvMAsc.webp?r=ced" alt="나혼자만 레벨업">
-            </div>
-        </div>  
     </div>
 </body>
 </html>

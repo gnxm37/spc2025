@@ -1,45 +1,118 @@
-body{
-    background-size: cover;
-    background: url("https://assets.nflxext.com/ffe/siteui/vlv3/98df3030-1c2b-4bd1-a2f5-13c611857edb/web/KR-ko-20250331-TRIFECTA-perspective_3e241400-e242-49c2-ab53-7f9ff2d90951_small.jpg");
-    z-index: 10;
-}
-
-ul{
-    list-style-type: none;
+.container{
     margin: 0;
     padding: 0;
-    display: flex;
-    /* border: 1px solid #555; */
-}
-li{
-    flex: 1;
-    width: 100px;
-    text-align: center;
-    z-index: 100;
-    /* border-bottom: 1px solid #555; */
-}
-li div{
-    display: block;
-    padding: 8px 16px;
-    text-decoration: none;
+    height: 700px;
+    background-position: center;    
+    background: url("https://assets.nflxext.com/ffe/siteui/vlv3/98df3030-1c2b-4bd1-a2f5-13c611857edb/web/KR-ko-20250331-TRIFECTA-perspective_3e241400-e242-49c2-ab53-7f9ff2d90951_small.jpg");
 }
 
-#language > #option{
+.nav::before{
+    top: 0px;
+    height: 700px;
+    content: '';
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.900), rgba(0, 0, 0, 0.300), rgba(0, 0, 0, 0.900));
+    position: absolute;
+    width: 100%;
+}
+
+.nav .nav-top img{
+    position: absolute;
+    text-align: center;
+    width: 205px;
+    height: auto;
+    left: 18px;
+}
+.nav .nav-top select{
+    position: absolute;
+    text-align: center;
+    right: 200px;
+    top: 29px;
+    width: 100px;
+    height: 30px;
+    border: 1px solid white;
+    background-color: black;
+    color: white;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.nav .nav-top #login{
+    position: absolute;
+    text-align: center;
+    right: 100px;
+    top: 29px;
+    width: 70px;
+    height: 30px;
+    border: 1px solid red;
+    background-color: red;
+    border-radius: 3px;
+    color: white;
+    font-size: 12px;
+}
+
+.nav #language{
     background-color: black;
     color:white;
 }
 
-#login{
-    background-color: red;
-    color: white;
-}
-#main{
+.nav h1{
+    position: relative;
     text-align: center;
     color: white;
+    margin: -10px;
+    padding-top: 242px;
+    margin-bottom: 0;
 }
-#email-address{
+
+.nav h2{
+    position: relative;
+    text-align: center;
+    color: white;
+    font-weight: normal;
+    font-size: 20px;
+    margin-top: 25px;
+}
+
+.nav h3{
+    position: relative;
+    text-align: center;
+    color: white;
+    font-weight: normal;
+    font-size: 15px;
+    margin-top: 30px;
+}
+
+.nav form{
+    position: relative;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.nav #email{
+    position: relative;
+    width: 300px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.300);
+    border-radius: 3px;
+    border: 1px solid gray;
+}
+
+.nav form #start{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-left: 5px;
+    width: 150px;
+    height: 50px;
+    border-radius: 3px;
+    border: 1px solid red;
+    background-color: red;
+    color: white;
+    font-size: 20px;
+}
+
 .price{
     width: 50%;
     height: 100px;
