@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #result{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>버튼??</h1>
+    <div id="result">0</div>
+    <div>
+        <button onclick="increment()">증가(+1)</button>
+        <button onclick="decrement()">감소(-1)</button>
+    </div>    
+    <script>
+        function increment(){
+            const a = document.getElementById("result");
+            result.innerText = Number(result.innerText)+1;
+            // console.log("증가버튼클릭");
+        }
+        function decrement(){
+            const a = document.getElementById("result");
+            // console.log("감소버튼클릭");
+            if(result.innerText <= 0){
+                result.innerText = Number(result.innerText);
+            }else{
+                result.innerText = Number(result.innerText)-1;
+            }
+            //숙제1. 감소할 때 0이하로 안내려가도록
+        }
+    </script>
+</body>
+</html>

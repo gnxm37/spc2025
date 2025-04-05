@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #progressBar{
+            width: 100%;
+            background-color: rgb(77, 163, 203);
+        }
+        #progress{
+            width: 0%;
+            height: 30px;
+            background-color: greenyellow;
+        }
+    </style>
+</head>
+<body>
+    <h1>프로그래스바(타이머)</h1>
+    <input type="number" id="timeInput" placeholder="초 입력" min="1">
+    <button id="startbutton" onclick="startbutton()">시작</button>
+    <button id="resetbutton" onclick="resetbutton()">리셋</button>
+
+    <div id="progressBar">
+        <div id="progress"></div>
+    </div>
+    <script>
+        const timeInput = document.getElementById("timeInput");
+        const progressBar = document.getElementById("progress");
+
+        let duration = 0; // 사용자가 입력한 시간
+        var press = 0;
+
+        function startbutton(){
+            duration = Number(timeInput.value); //초 입력
+            let timePassed = 0;   // 경과된 시간 
+            press = 0;
+            interval = setInterval(function(){
+                
+                if(press == 0){
+                    timePassed++; //1초 증가
+                    console.log(timePassed);
+                    let progress = (timePassed / duration) * 100; //진행율
+                    progressBar.style.width = `${progress}%`; // <- 스트링 리터럴 = progress + "%"
+                    // 끝까지 완료했으면? 이 타이머 삭제
+                    if(timePassed >= duration){
+                        clearInterval(interval);
+                    }
+                }else{
+                    clearInterval(interval);
+                }
+                
+            },1000);
+        }
+
+        function resetbutton(){
+            press = press + 1;
+            progressBar.style.width = "0%";
+        }
+
+        //2. RESET 버튼 구현하기
+        //2-1. RESET 누르면 타이머 멈추기
+        //2-2. RESET 눌렀을때 타이머도 멈추고 추가적으로 바 게이지 초기화 하기
+    </script>
+</body>
+</html>

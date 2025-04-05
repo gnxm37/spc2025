@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        table{
+            border-collapse: collapse;
+        }
+        td{
+            padding: 10px;
+            border:1px solid black;
+            /* background-color: aqua; */
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>셀 1</td>
+            <td>셀 2</td>
+            <td>셀 3</td>
+        </tr>
+        <tr>
+            <td>셀 4</td>
+            <td>셀 5</td>
+            <td>셀 6</td>
+        </tr>
+        <tr>
+            <td>셀 7</td>
+            <td>셀 8</td>
+            <td>셀 9</td>
+        </tr>
+    </table>
+    <button onclick="changeAllColor()">전체색상변경</button>
+    <button onclick="changeOddColor()">홀수색상변경</button>
+    <button onclick="changeEvenColor()">짝수색상변경</button>
+    <button onclick="changeRow()">가로색상변경</button>
+    <script>
+        var cell = document.getElementsByTagName('td');
+        function changeAllColor(){
+            // for (var i=0; i<9; i++){
+            //     cell[i].style.backgroundColor = 'aqua';
+            // }
+
+            Array.from(cell).forEach(cell => cell.style.backgroundColor = "lightblue")
+
+            // for(var cell of cell){
+            //     cell.style.backgroundColor = 'aqua';
+            // }
+        }
+        function changeOddColor(){
+            for (var i=0; i<9; i=i+2){
+                cell[i].style.backgroundColor = 'violet';
+            }
+        }
+        function changeEvenColor(){
+            for (var i=1; i<9; i=i+2){
+                cell[i].style.backgroundColor = 'lightgreen';
+            }
+        }
+        function changeRow(){
+            for (var i=0; i<3; i++){
+                cell[i].style.backgroundColor = 'lightyellow';
+            }
+        }
+
+    </script>
+</body>
+</html>
