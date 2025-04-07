@@ -39,19 +39,23 @@
     <div id="dragItem3" draggable="true">Drag Me</div>
     <div id="dropZone">Drop here</div>
     <script>
-        const dragItem1 = document.getElementById("dragItem1");
-        const dragItem2 = document.getElementById("dragItem2");
-        const dragItem3 = document.getElementById("dragItem3");
-        const dragZone = document.getElementById("dragZone");
-        
+        // const dragItem1 = document.getElementById("dragItem1");
+        // const dragItem2 = document.getElementById("dragItem2");
+        // const dragItem3 = document.getElementById("dragItem3");
+        const dropZone = document.getElementById("dropZone");
+        let point = 0;
+
         dragItem1.addEventListener("dragstart", function(event){
-            console.log("드래그 시작");
+            console.log("1번 드래그 시작");
+            point = 1;
         });
         dragItem2.addEventListener("dragstart", function(event){
-            console.log("드래그 시작");
+            console.log("2번 드래그 시작");
+            point = 2;
         });
         dragItem3.addEventListener("dragstart", function(event){
-            console.log("드래그 시작");
+            console.log("3번 드래그 시작");
+            point = 3;
         });
 
         dropZone.addEventListener("dragover", function(event){
@@ -62,7 +66,8 @@
         dropZone.addEventListener("drop", function(event){
             event.preventDefault();
             console.log("드롭 발생");
-            dropZone.appendChild(dragItem2);
+            const dragItem = document.getElementById("dragItem"+String(point));
+            dropZone.appendChild(dragItem);
         });
 
     </script>    
