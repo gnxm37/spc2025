@@ -4,25 +4,29 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <style>
+        div{
+            text-align: center;
+            align-content: center;
+            margin: 20px 0px 20px 0px;
+        }
+
+
         #dragItem1{
             width: 100px;
             height: 100px;
             background-color: #ffcc00;
-            margin-bottom: 20px;
         }
 
         #dragItem2{
             width: 100px;
             height: 100px;
             background-color: #9fd163;
-            margin-bottom: 20px;
         }
 
         #dragItem3{
             width: 100px;
             height: 100px;
             background-color: #606cef;
-            margin-bottom: 20px;
         }
 
         #dropZone{
@@ -34,9 +38,9 @@
     </style>
 </head>
 <body>
-    <div id="dragItem1" draggable="true">Drag Me</div>
-    <div id="dragItem2" draggable="true">Drag Me</div>
-    <div id="dragItem3" draggable="true">Drag Me</div>
+    <div id="dragItem1" draggable="true">Drag me</div>
+    <div id="dragItem2" draggable="true">Drag me</div>
+    <div id="dragItem3" draggable="true">Drag me</div>
     <div id="dropZone">Drop here</div>
     <script>
         // const dragItem1 = document.getElementById("dragItem1");
@@ -67,7 +71,16 @@
             event.preventDefault();
             console.log("드롭 발생");
             const dragItem = document.getElementById("dragItem"+String(point));
+            dragItem.style.display = "inline-block" ;
             dropZone.appendChild(dragItem);
+            
+            if (dropZone.children.length > 1) {
+                for (let i = 0; i < dropZone.children.length; i++) {
+                const child = dropZone.children[i];
+                child.style.width = "40px";
+                child.style.margin = "0";
+            }
+        }
         });
 
     </script>    
