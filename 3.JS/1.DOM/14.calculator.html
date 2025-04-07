@@ -38,7 +38,7 @@
         <button onclick="clickNumber(this.innerText)">7</button>
         <button onclick="clickNumber(this.innerText)">8</button>
         <button onclick="clickNumber(this.innerText)">9</button>
-        <button onclick="clickNumber(this.innerText)">=</button>
+        <button onclick="clickCalculate(this.innerText)">=</button>
 
         <button onclick="clickNumber(this.innerText)">4</button>
         <button onclick="clickNumber(this.innerText)">5</button>
@@ -62,24 +62,26 @@
         function clickSymbol(value) {
             if(inputBox.value.length >= 1 && isNaN(Number(inputBox.value[inputBox.value.length])) && !isNaN(Number(inputBox.value[inputBox.value.length-1]))) {
                 inputBox.value += value;
-                console.log("좋아요."+ inputBox.value);
-                calculator_result.innerHTML = "잘 입력했어요. 계산결과를 드릴게요.";
+                calculator_result.innerHTML = "잘 입력했어요. 계산결과를 드릴게요."  + inputBox.value;
             }else{
-                console.log("나빠요." + inputBox.value);
-                calculator_result.innerHTML = "심볼은 하나만 입력하세요.";
+                calculator_result.innerHTML = "심볼은 하나만 입력하세요."  + inputBox.value;
             }
+            //1. 심볼은 하나만 입력되어야 함. (나의 이전 문자를 보고 이전에 숫자가 있을 때만 누르기)
+            //2. 연산을 수행해야 함. equal = 을 클릭하면 그 연산 수행하기
+        }
 
-            // if(value == "+"){
-            //     //1. 심볼은 하나만 입력되어야 함. (나의 이전 문자를 보고 이전에 숫자가 있을 때만 누르기)
-            //     //2. 연산을 수행해야 함. equal = 을 클릭하면 그 연산 수행하기
-
-            // } else if(value == "-"){
-
-            // } else if(value == "-"){
-
-            // } else{
-
-            // }  
+        function clickCalculate(value) {
+            // inputBox.value[inputBox.value.length-1] == "=" 
+            let infinite = 0;
+            if(infinite == 0 && !isNaN(Number(inputBox.value[inputBox.value.length-1]))){
+                infinite = 1;
+                inputBox.value += value;
+                for(i=0; i<inputBox.value.length; i++){
+                    calculator_result.innerHTML = "결과"  + inputBox.value;
+                }
+            }else{
+                calculator_result.innerHTML = "연산 불가. 숫자를 입력해주세요."  + inputBox.value;
+            }
         }
 
     </script>
