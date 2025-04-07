@@ -73,11 +73,19 @@
         function clickCalculate(value) {
             // inputBox.value[inputBox.value.length-1] == "=" 
             let infinite = 0;
+            let cal_result = Number(inputBox.value[0]);
             if(infinite == 0 && !isNaN(Number(inputBox.value[inputBox.value.length-1]))){
                 infinite = 1;
+                let count = (inputBox.value.length-1)/2;
                 inputBox.value += value;
-                for(i=0; i<inputBox.value.length; i++){
-                    calculator_result.innerHTML = "결과"  + inputBox.value;
+                for(i=1; i<inputBox.value.length; i+2){
+                    cal_result = eval(cal_result + inputBox.value[i] + inputBox.value[i+1]); 
+                    console.log(cal_result);
+                    count--;
+                    if(count == 0){
+                        break;
+                    }
+                    calculator_result.innerHTML = "연산 가능. 결과는 : " + inputBox.value;
                 }
             }else{
                 calculator_result.innerHTML = "연산 불가. 숫자를 입력해주세요."  + inputBox.value;
