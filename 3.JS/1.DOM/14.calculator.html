@@ -24,6 +24,11 @@
             padding: 10px;
             font-size: 18px;
         }
+
+        #calculator_result{
+           text-align: center;
+        }
+
     </style>
 </head>
 
@@ -62,8 +67,11 @@
         function clickSymbol(value) {
             if(inputBox.value.length >= 1 && isNaN(Number(inputBox.value[inputBox.value.length])) && !isNaN(Number(inputBox.value[inputBox.value.length-1]))) {
                 inputBox.value += value;
-                calculator_result.innerHTML = "잘 입력했어요. 계산결과를 드릴게요.";
-            }else{
+                calculator_result.innerHTML = "잘 입력했어요. 계속 입력해주세요.";
+            }else if(inputBox.value.length == 0 && isNaN(Number(inputBox.value[inputBox.value.length-1]))){
+                calculator_result.innerHTML = "첫번째는 숫자가 와야 합니다.";
+            }
+            else{
                 calculator_result.innerHTML = "심볼은 하나만 입력하세요.";
             }
             //1. 심볼은 하나만 입력되어야 함. (나의 이전 문자를 보고 이전에 숫자가 있을 때만 누르기)
@@ -85,9 +93,10 @@
                 console.log(result);
 
                 inputBox.value += result;
+                calculator_result.innerHTML = "연산 가능. 결과가 나왔어요.";
 
             }else{
-                calculator_result.innerHTML = "연산 불가. 숫자를 입력해주세요."  + inputBox.value;
+                calculator_result.innerHTML = "연산 불가. 숫자를 입력해주세요.";
             }
         }
 
