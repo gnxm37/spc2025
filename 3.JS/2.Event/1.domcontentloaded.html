@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        console.log("Hello, head");
+    </script>
+</head>
+<body>
+    <script>
+        // 1. 일반 익명함수 스타일
+        // document.addEventListener("DOMContentLoaded", function(){
+        //     console.log("DOM 로딩");
+        // });
+
+        // 2-1. 모던JS의 한줄짜리 화살표함수 표현법
+        // document.addEventListener("DOMContentLoaded", () => console.log("DOM 로딩"));
+
+        // 2-2. 모던JS의 멀티라인 화살표함수 표현법
+        document.addEventListener("DOMContentLoaded", () => {
+            //DOM의 로딩이 끝났을 때 , "DOMContentLoaded" 라는 이벤트를 브라우저가 발생시켜주고,
+            //그것을 핸들러를 통해서 호출해 줌.
+            //DOM 로딩이 끝났을 뿐, 실제 CSS/JS/IMG거나.. 이런게 다 처리가 끝났다고 보장할 수 없음.
+            //DOM 로딩만 끝났다고 보장된다. (HTML Tree가 구성되어 각종 요소(Element)의 처리가 가능함.)
+            console.log("DOM 로딩 완료");
+        });
+
+        console.log("Hello, body");
+    </script>    
+</body>
+</html>

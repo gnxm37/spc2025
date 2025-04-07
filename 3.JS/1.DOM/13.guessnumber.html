@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>숫자 맞추기 게임</h1>
+    <h2>1~100까지의 숫자 맞추기...</h2>
+    <input type="number" id="guessNumber" placeholder="숫자를 입력하시오">
+    <button id="guessButton" onclick="guessButton()">Guess</button>
+    <p id="result"></p>
+    <ol id="history"></ol>
+    <script>
+        const answer = Math.floor(Math.random()*100) + 1;  
+        const guessNumber = document.getElementById("guessNumber");
+        const result = document.getElementById("result");
+        const history = document.getElementById("history");
+        console.log(answer);   
+        
+        function guessButton(){
+            let resultText = "";
+
+            if(guessNumber.value < answer){
+                resultText = "숫자가 너무 작아요";
+            }
+            else if(guessNumber.value == answer){
+                resultText = "정답입니다. 축하합니다~~";
+            }
+            else{
+                resultText = '숫자가 너무 커요';
+            }
+
+            result.innerHTML = `<B>${resultText}</B>`;
+            const newResult = document.createElement("li");
+            newResult.innerHTML = `사용자 입력 : ${guessNumber.value}, ${resultText}`;
+            history.appendChild(newResult);
+ 
+            // 수학적인 계산식.. log(100) = 6.64 = 7번을 찍어야 함
+
+            // 미션4. 나의 찍기 기록을 계속 화면에 두고 싶음.
+        }
+    </script>   
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>계산기</title>
+    <style>
+        .calculator{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+            max-width: 300px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .calculator input{
+            grid-column: span 4;
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        .calculator button{
+            padding: 10px;
+            font-size: 18px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="result" readonly>
+        <button onclick="clickSymbol(this.innerText)" >+</button>
+        <button onclick="clickSymbol(this.innerText)" >-</button>
+        <button onclick="clickSymbol(this.innerText)" >*</button>
+        <button onclick="clickSymbol(this.innerText)" >/</button>
+        
+        <button onclick="clickNumber(this.innerText)" >7</button>
+        <button onclick="clickNumber(this.innerText)" >8</button>
+        <button onclick="clickNumber(this.innerText)" >9</button>
+        <button onclick="clickNumber(this.innerText)" >=</button>
+        
+        <button onclick="clickNumber(this.innerText)" >4</button>
+        <button onclick="clickNumber(this.innerText)" >5</button>
+        <button onclick="clickNumber(this.innerText)" >6</button>
+        <button onclick="clickNumber(this.innerText)" >C</button>
+        
+        <button onclick="clickNumber(this.innerText)" >1</button>
+        <button onclick="clickNumber(this.innerText)" >2</button>
+        <button onclick="clickNumber(this.innerText)" >3</button>
+        <button onclick="clickNumber(this.innerText)" >0</button>
+    </div>
+
+    <script>
+        const inputBox = document.getElementById("result");
+
+        function clickNumber(value){
+            inputBox.value += value;
+        }
+
+        function clickSymbol(value){
+            // if(value == "+"){
+                //     //1. 심볼은 하나만 입력되어야 함. (나의 이전 문자를 보고 이전에 숫자가 있을 때만 누르기)
+                //     //2. 연산을 수행해야 함. equal = 을 클릭하면 그 연산 수행하기
+                
+                // } else if(value == "-"){
+                    
+                // } else if(value == "-"){
+                    
+                // } else{
+                    
+                // }  
+                let correct = "";
+                
+                for(let i= inputBox.value.length-1; i<inputBox.value.length; i++){
+                    if(inputBox.value.length == 1){
+                        correct = "한자리 수";
+                    }else if(!isNaN(Number(inputBox.value[i]))){
+                        inputBox.value += value;
+                        correct = (Number(inputBox.value[i])+"타입 맞음");
+
+                    }else{
+                        inputBox.value -= value;
+                        correct = (Number(inputBox.value[i])+"타입 안맞음");
+                    }
+                    console.log(correct);
+                    console.log(inputBox.value + "인풋에 들어가 있는 리스트");
+                }
+        }
+
+    </script>
+</body>
+</html>
