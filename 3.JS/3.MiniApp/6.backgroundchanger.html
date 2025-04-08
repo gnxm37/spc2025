@@ -32,7 +32,7 @@
     <script>
         // 버튼을 클릭하면 랜덤 색상으로 바꾼다.
         document.getElementById("changeBGColor").addEventListener("click", function(){
-            const randomColor = getRandomColor();
+            const randomColor = getRandomColorHex();
             document.body.style.backgroundColor = randomColor;
             document.getElementById("colorCode").textContent = randomColor;
         })
@@ -54,7 +54,7 @@
             const ggHex = gg.toString(16).padStart(2,'0');
             const bbHex = bb.toString(16).padStart(2,'0');
             
-            return `#${rrHex}${ggHex},${bbHex})`;
+            return `#${rrHex}${ggHex}${bbHex}`;
         }
 
 

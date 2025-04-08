@@ -1,12 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>START/STOP/RESET WATCH</title>
-</head>
-<body>
+    <style>
+        button {
+            height: 90%;
+            padding: 8px;
+        }
 
+        div {
+            margin: 50px auto;
+            align-items: center;
+            text-align: center;
+        }
+
+        div #timer {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div id="timer">
+            00:00.00
+        </div>
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+        <button id="reset">Reset</button>
+    </div>
     <!-- (Date()라는 객체를 활용해서 00:00.00 형태의 시간표현) -->
+    <script>
+        const start = document.getElementById("start");
+        const stop = document.getElementById("stop");
+        const reset = document.getElementById("reset");
+        const timer = document.getElementById("timer");
+        let deletetime = 0; // STOP했다가 START할때 빼야 되는 시간
+        let move;
+        
+        document.getElementById("start").addEventListener('click', function () {
+            const time = new Date() - deletetime;
+            if (move) {
+                clearInterval(move);
+            }
+            move = setInterval(function () {
+                const timediff = new Date();
+                const diff = timediff - time;
+                deletetime = diff;
+
+                console.log(diff);
+                const minutes = Math.floor(diff / 60000);
+                const seconds = Math.floor((diff % 60000) / 1000);
+                const milliseconds = diff % 1000;
+
+                timer.innerText = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(2, '0').slice(0, 2)}`;
+            }, 10);
+        })
+
+        document.getElementById("stop").addEventListener('click', function () {
+            console.log("중단버튼");
+            clearInterval(move);
+        })
+
+        document.getElementById("reset").addEventListener('click', function () {
+            console.log("리셋버튼");
+            clearInterval(move);
+            timer.innerText = '00:00.00';
+            deletetime = 0;
+        })
+    </script>
 </body>
+
 </html>
