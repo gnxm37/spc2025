@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .gallery img {
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        #large-image {
+            display: none;
+            max-width: 100%;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>고양이 갤러리</h1>
+    <div class="gallery">
+        <img src="images/1.jpg" alt="고양이1" id="img1">
+        <img src="images/2.jpg" alt="고양이2" id="img2">
+        <img src="images/3.jpg" alt="고양이3" id="img3">
+    </div>
+
+    <!-- <img id="large-image" src="" alt="큰 고양이"> -->
+    <div id="large-image-container"></div>
+
+    <script>
+        // const img1 = document.getElementById("img1");
+        // const img2 = document.getElementById("img2");
+        // const img3 = document.getElementById("img3");
+        // const largeImage = document.getElementById("large-image");
+
+        // img1.addEventListener('click', function () {
+        //     largeImage.src = img1.src;
+        //     largeImage.style.display = "block";
+        // })
+        // img2.addEventListener('click', function () {
+        //     largeImage.src = img2.src;
+        //     largeImage.style.display = "block";
+        // })
+        // img3.addEventListener('click', function () {
+        //     largeImage.src = img3.src;
+        //     largeImage.style.display = "block";
+        // })
+        // const images = [img1, img2, img3];
+
+        // for (i=0; i<images.length; i++){
+        //     images[i].addEventListener('click', function(){
+        //         largeImage.src = images[i].src;
+        //         largeImage.style.display = 'block';
+
+        //     })
+        // }
+
+        // images.forEach(function(img){
+        //     img.addEventListener('click',function(){
+        //         largeImage.src = img.src;
+        //         largeImage.style.display = 'block';
+        //     })
+        // })
+
+
+        // 변수조차 사전에 선언 안하고, Loc (line-of-code)를 최소화한 형태
+        // document.querySelectorAll('.gallery img').forEach(function (img) {
+        //     img.addEventListener('click', function () {
+        //         const largeImage = document.getElementById("large-image");
+        //         largeImage.src = img.src;
+        //         largeImage.style.display = 'block';
+
+        //     })
+        // })
+
+        // ===================================
+        // 방법2. 더미 div를 사용해서 img 삽입
+        // ===================================
+
+        document.querySelectorAll(".gallery img").forEach(function (img){
+            img.addEventListener('click', function(){
+
+                const newimg = document.createElement("img");
+                newimg.src = img.src;
+                newimg.style.maxWidth = '100%';
+                newimg.style.margin = "20px auto"
+
+                const container = document.getElementById("large-image-container");
+                container.innerHTML = "";
+                container.appendChild(newimg);
+            })
+        })
+
+
+        // 미션1. 마우스로 클릭한 이미지 크게 보여주기
+    </script>
+</body>
+
+</html>
