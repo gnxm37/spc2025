@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        .slider {
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .slider img {
+            width: 200px;
+            height: 200px;
+            display: none;
+        }
+
+        .slider img.active {
+            display: block;
+        }
+
+        .buttons {
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>이미지 슬라이더</h1>
+    <div class="slider">
+        <img src="images/1.jpg" alt="고양이1" id="img1" class="active">
+        <img src="images/2.jpg" alt="고양이2" id="img2">
+        <img src="images/3.jpg" alt="고양이3" id="img3">
+        <div class="filename" id="filename"></div>
+        <div class="buttons">
+            <button id="prev">이전</button>
+            <button id="next">다음</button>
+        </div>
+    </div>
+    <script>
+        // 1. 버튼 가져다가, 클릭하면, class=active를 다음거로 이동하기... 파일명 등등.. 갱신
+        const images = document.querySelectorAll('.slider img');
+        const filename = document.getElementById("filename");
+        let images_index = 0;
+        
+        function updateFilename(){
+            const shortfilename = images[images_index].src.split("/").pop();
+            filename.textContent = shortfilename;
+        }
+
+        updateFilename(); // 첫번째 실행할 때 나오게 함.
+
+
+        document.getElementById('prev').addEventListener('click', function () {
+            images[images_index].classList.remove("active");
+            images_index = (images_index === 0) ? images.length - 1 : images_index - 1;
+            images[images_index].classList.add("active");
+
+            // console.log(images[images_index].src.split("/").pop());
+            console.log("이전 버튼 완료");
+
+            updateFilename();
+        })
+
+        document.getElementById('next').addEventListener('click', function () {
+            images[images_index].classList.remove("active");
+            images_index = (images_index === images.length - 1) ? 0 : images_index + 1;
+            images[images_index].classList.add("active");
+
+            console.log("다음 버튼 완료");
+
+            updateFilename();
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .gallery img {
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        /* #large-image {
+            display: none;
+            max-width: 100%;
+            margin: 20px auto;
+        } */
+    </style>
+</head>
+
+<body>
+    <h1>고양이 갤러리</h1>
+    <div class="gallery">
+        <img src="images/1.jpg" alt="고양이1" id="img1">
+        <img src="images/2.jpg" alt="고양이2" id="img2">
+        <img src="images/3.jpg" alt="고양이3" id="img3">
+    </div>
+
+    <!-- <img id="large-image" src="" alt="큰 고양이"> -->
+    <div id="large-image"></div>
+
+    <script>
+        
+        document.querySelectorAll(".gallery img").forEach(function (img) {
+            img.addEventListener("click", function () {
+                const largeImage = document.getElementById("large-image");
+                const newImage = document.createElement("img");
+                newImage.src = img.src;
+                newImage.style.maxwidth = "100%";
+                newImage.style.margin = "20px auto";
+                console.log(largeImage);
+                largeImage.innerHTML = "";
+                largeImage.appendChild(newImage);
+            })
+        })
+
+        // 미션1. 마우스로 클릭한 이미지 크게 보여주기
+    </script>
+</body>
+
+</html>
