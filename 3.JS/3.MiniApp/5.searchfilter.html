@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #fruitname {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>실시간 검색 기능</h1>
+    <input type="text" id="searchInput" placeholder="검색...">
+    <ul id="itemsList">
+        <li>Apple</li>
+        <li>Banana</li>
+        <li>Orange</li>
+        <li>Grapes</li>
+        <li>Strawberry</li>
+        <li>Pineapple</li>
+        <li>Mango</li>
+        <li>Watermelon</li>
+        <li>Cherry</li>
+        <li>Peach</li>
+        <li>Blueberry</li>
+        <li>Kiwi</li>
+        <li>Plum</li>
+        <li>Pear</li>
+        <li>Coconut</li>
+        <li>Apricot</li>
+        <li>Fig</li>
+        <li>Pomegranate</li>
+        <li>Passion Fruit</li>
+        <li>Guava</li>
+    </ul>
+    <p id="fruitname"></p>
+    <script>
+        const searchInput = document.getElementById("searchInput");
+        const itemList = document.getElementById("itemsList");
+        const items2 = itemList.querySelectorAll("li");
+        // const itemsList = document.querySelectorAll("li");
+        // document.getElementById("searchInput").addEventListener('keyup', function () {
+        //     const fruitname = document.getElementById("fruitname");
+        //     // fruitname.innerHTML = searchInput.value; // 무엇을 입력했는지 알 수 있다.
+        //     fruitname.innerHTML = "단어를 못 찾았습니다.";
+
+        //     for (let i = 0; i < itemsList.length; i++) {
+        //         if (itemsList[i].innerText.toLowerCase().includes(searchInput.value.toLowerCase())) {
+        //             itemsList[i].style.display = '';
+        //             fruitname.innerHTML = "단어를 찾았습니다.";
+        //         } else {
+        //             itemsList[i].style.display = 'none';
+        //         }
+        //     }
+
+        // });
+
+        // console.log(itemsList[i]);
+        searchInput.addEventListener("keyup", () => {
+            // Array.from(itemsList[i]).forEach((item) => {
+            // console.log(items);
+            // })
+            // [...itemsList[i]].forEach((item) => {
+            //     console.log(item);
+            // })
+            items2.forEach((item) => {
+                const text = item.textContent.toLowerCase();
+                const filter = searchInput.value.toLowerCase();
+
+                if (text.includes(filter)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+
+                }
+            })
+        });
+
+
+
+        // 미션1. 실시간 검색 기능 구현
+        // 미션1-1. 검색창의 입력 결과를 가져온다.
+        // 미션1-2. 해당 언어를 목록에 "포함"되어 있는지 확인한다 (includes 라는 내장함수 사용)
+        // 미션1-3. 해당 되는 것은 보여주고, 해당되지 않는 것은 숨긴다 (display: none; css속성 활용)
+    </script>
+</body>
+
+</html>
