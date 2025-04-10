@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<!-- 힌트 blur 활용 -->
+
+<body>
+    <div class="container my-4">
+        <h1>회원가입 폼</h1>
+        <form id="exampleForm">
+            <!-- 사용자명 -->
+
+            <label for="username" class="form-label mb-0"> 사용자명 </label>
+            <div class="input-group mb-0">
+                <span class="input-group-text" id="basic-addon1">
+                    <i class="bi bi-person"></i>
+                </span>
+                <input type="text" id="username" name="username" class="form-control" placeholder="3~10글자로 입력하세요"
+                    aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+            <div id="usernameError" class="text-danger small mb-2"></div>
+
+            <!-- 비밀번호 -->
+            <label for="password" class="form-label mb-0"> 비밀번호 </label>
+            <div class="input-group mb-0">
+                <span class="input-group-text" id="basic-addon1">
+                    <i class="bi bi-lock"></i>
+                </span>
+                <input type="password" id="password" name="password" class="form-control"
+                    placeholder="대소문자, 숫자/특수문자 포함 8자 이상" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+            <div id="passwordError" class="text-danger small mb-2"></div>
+
+            <!-- 이름 -->
+            <label for="name" class="form-label mb-0"> 이름 </label>
+            <div class="input-group mb-0">
+                <span class="input-group-text" id="basic-addon1">
+                    <i class="bi bi-card-text"></i>
+                </span>
+                <input type="text" id="name" name="name" class="form-control" placeholder="1~10글자로 입력하세요">
+            </div>
+            <div id="nameError" class="text-danger small mb-2"></div>
+
+            <!-- 생년월일 캘린더 활용-->
+            <label for="calendar" class="form-label mb-0"> 생년월일 </label>
+            <div class="input-group mb-0">
+                <span class="input-group-text" id="basic-addon1">
+                    <i class="bi bi-calendar"></i>
+                </span>
+                <input type="date" id="date" name="date" class="form-control">
+            </div>
+
+            <!-- 관심분야 -->
+            <label class="form-label"> 관심 분야 (최소 1개, 최대 3개 선택) </label>
+            <div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="interest1" id="interest1">
+                    <label class="form-check-label" for="interest1">관심 분야 1</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="interest2" id="interest2">
+                    <label class="form-check-label" for="interest2">관심 분야 2</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="interest3" id="interest3">
+                    <label class="form-check-label" for="interest3">관심 분야 3</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="interest4" id="interest4">
+                    <label class="form-check-label" for="interest4">관심 분야 4</label>
+                </div>
+            </div>
+
+            <!-- 제출 -->
+            <button type="submit" class="btn btn-primary mt-3">제출</button>
+        </form>
+
+        <!-- 결과출력할 공간 -->
+        <div id="result" class="mt-4"></div>
+
+    </div>
+
+    <script>
+        const form = document.getElementById('exampleForm');
+        const resultDiv = document.getElementById('result');
+        const usernameInput = document.getElementById('username');
+        const usernameError = document.getElementById('usernameError');
+        const passwordInput = document.getElementById('password');
+        const passwordError = document.getElementById('passwordError');
+        const nameInput = document.getElementById('name');
+        const nameError = document.getElementById('nameError');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+            const username = formData.get('username');
+            const password = formData.get('password');
+            const name = formData.get('name');
+            const date = formData.get('date');
+            // const date = formData.get('date');
+
+            resultDiv.innerHTML = `
+                <div class='alert alert-success'>
+                    <h5> 폼 데이터 제출 완료! </h5>
+                    <p><strong>사용자명:</strong> ${username} </p>
+                    <p><strong>비밀번호:</strong> ${password} </p>
+                    <p><strong>이름:</strong> ${name} </p>
+                    <p><strong>생년월일:</strong> ${date} </p>
+                </div>
+                `;
+        })
+
+        usernameInput.addEventListener('blur', () => {
+            const username = usernameInput.value.trim();
+            if (username.length < 3 || username.length > 10) {
+                usernameError.innerHTML = `<div class="text-danger small">3~10글자로 입력하세요.</div>`;
+
+            } else {
+                usernameError.innerHTML = "";
+            }
+        });
+
+        passwordInput.addEventListener('blur', () => {
+            const password = passwordInput.value.trim();
+            if (password.length < 8) {
+                passwordError.innerHTML = `<div class="text-danger small">대소문자, 숫자/특수문자 포함 8자 이상 입력해주세요.</div>`;
+
+            } else {
+                passwordError.innerHTML = "";
+            }
+        });
+
+        nameInput.addEventListener('blur', () => {
+            const name = nameInput.value.trim();
+            if (name.length < 1 || name.length > 10) {
+                nameError.innerHTML = `<div class="text-danger small">1~10글자로 입력하세요.</div>`;
+
+            } else {
+                nameError.innerHTML = "";
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>
