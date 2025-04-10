@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            border: 13px double black
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="400" height="300"></canvas>
+</body>
+<script>
+    const canvas = document.getElementById("myCanvas");
+    const context = canvas.getContext('2d');
+
+    const graphData = {
+        A: 10,
+        B: 20,
+        C: 30,
+        D: 40,
+        E: 50
+    }
+
+    drawBarGraph(graphData);
+
+    function drawBarGraph(data) {
+        const barWidth = 30;
+        const barHeightOffset = 40;
+        let startX = 20;
+
+        for(const key in data){
+            const barHeight = data[key];
+
+            context.fillStyle = "blue";
+            context.fillRect(startX, canvas.height - barHeight - barHeightOffset, barWidth, barHeight);
+            
+            // 축에 텍스트...
+            context.fillStyle = 'red';
+            context.fillText(key, startX + barWidth/2, canvas.height - 20);
+
+            startX = startX + 50;
+        }
+        // let startY = graphData[i];
+    }
+</script>
+
+</html>
