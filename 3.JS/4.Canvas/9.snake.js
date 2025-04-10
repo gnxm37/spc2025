@@ -21,7 +21,7 @@ function initialize() {
     setupEventListeners();
 
     // 빨간 상자 위치 초기화
-    redBox = getRandomPosition();
+    redBox = randomBox();
 
     // 게임 시작 루프 호출
     setInterval(gameLoop, GAME_SPEED);
@@ -40,14 +40,15 @@ function gameLoop() {
 function draw() {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    context.fillStyle = 'pink';
-    context.fillRect(snake.x, snake.y, snake.blocksize, snake.blocksize);
-
     context.fillStyle = 'red';
     context.fillRect(redBox.x, redBox.y, BLOCK_SIZE, BLOCK_SIZE);
 
-    if(snake.x == redBox.x && snake.y == redBox.y){
-        redBox = getRandomPosition();
+    context.fillStyle = 'pink';
+    context.fillRect(snake.x, snake.y, BLOCK_SIZE, BLOCK_SIZE);
+
+
+    if (snake.x == redBox.x && snake.y == redBox.y) {
+        redBox = randomBox();
     }
 }
 
@@ -64,9 +65,7 @@ function moveSnake() {
         snake.x = 0;
     } else if (snake.x < 0) {
         snake.x = canvas.width - BLOCK_SIZE;
-    }
-
-    if (snake.y >= canvas.height) {
+    } else if (snake.y >= canvas.height) {
         snake.y = 0;
     } else if (snake.y < 0) {
         snake.y = canvas.height - BLOCK_SIZE;
@@ -99,12 +98,12 @@ function setupEventListeners() {
 }
 
 // 빨간 상자 값 뽑아내기
-function getRandomPosition() {
-    const xBlocks = Math.floor(canvas.width / BLOCK_SIZE);
-    const yBlocks = Math.floor(canvas.height / BLOCK_SIZE);
+function randomBox() {
+    const intX = Math.floor(canvas.width / BLOCK_SIZE);
+    const intY = Math.floor(canvas.height / BLOCK_SIZE);
 
-    const x = Math.floor(Math.random() * xBlocks) * BLOCK_SIZE;
-    const y = Math.floor(Math.random() * yBlocks) * BLOCK_SIZE;
+    const x = Math.floor(Math.random() * intX) * BLOCK_SIZE;
+    const y = Math.floor(Math.random() * intY) * BLOCK_SIZE;
 
     return { x, y };
 }
