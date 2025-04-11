@@ -5,9 +5,9 @@ class Person{
         this.sex = sex;
         this.job = job;
     }
-
-    playInCar(){
-        return console.log(`${this.name}이(가) 차 안에서 장난을 치고 있습니다.`);
+    getInCar(random){
+        console.log(random);
+        console.log(`${this.name}이(가) ${random.brand}에 탑승했습니다.`);
     }
 }
 
