@@ -1,0 +1,70 @@
+*
+**
+***
+****
+*****
+currentRow = 1 -> stars = 1
+currentRow = 2 -> stars = 2
+currentRow = 3 -> stars = 3
+currentRow = 4 -> stars = 4
+currentRow = 5 -> stars = 5
+
+
+*****
+****
+***
+**
+*
+currentRow = 5 -> stars = 5
+currentRow = 4 -> stars = 4
+currentRow = 3 -> stars = 3
+currentRow = 2 -> stars = 2
+currentRow = 1 -> stars = 1
+
+
+    * 
+   **
+  ***
+ ****
+*****
+currentRow = 5 -> stars = 공백4개 별1개
+currentRow = 4 -> stars = 공백3개 별2개
+currentRow = 3 -> stars = 공백2개 별3개
+currentRow = 2 -> stars = 공백1개 별4개
+currentRow = 1 -> stars = 공백0개 별5개
+
+
+*****
+ ****
+  ***
+   **
+    *
+currentRow = 1 -> stars = 공백0개 별5개
+currentRow = 2 -> stars = 공백1개 별4개
+currentRow = 3 -> stars = 공백2개 별3개
+currentRow = 4 -> stars = 공백3개 별2개
+currentRow = 5 -> stars = 공백4개 별1개
+
+
+    * 
+   ***
+  *****
+ *******
+*********
+i = 0 star = 1 space = 4
+i = 1 star = 3 space = 3
+i = 2 star = 5 space = 2
+i = 3 star = 7 space = 1
+i = 4 star = 9 space = 0
+
+
+*********
+ *******
+  *****
+   ***
+    *
+i = 0 star = 9 space = 0
+i = 1 star = 7 space = 1
+i = 2 star = 5 space = 2
+i = 3 star = 3 space = 3
+i = 4 star = 1 space = 4

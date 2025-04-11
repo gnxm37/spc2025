@@ -1,11 +1,11 @@
 const ROWS = 5;
 
-function leftTriangle(){
+function leftTriangle() {
     let currentRow = 1;
-    while(currentRow<=ROWS){
+    while (currentRow <= ROWS) {
         let stars = "";
         let starCount = 1;
-        while (starCount <= currentRow){
+        while (starCount <= currentRow) {
             stars += "*";
             starCount++;
         }
@@ -15,19 +15,20 @@ function leftTriangle(){
 }
 
 
-function righttTriangle(){
+function rightTriangle() {
     let currentRow = 1;
-    while(currentRow<=ROWS){
+    while (currentRow <= ROWS) {
         let stars = "";
-        let starCount = ROWS;
-        while (starCount >= currentRow){
-            stars = starCount;
+        let starCount = 5;
+        while (starCount >= currentRow) {
+            stars += "*";
             starCount--;
-            console.log("*");
         }
+        console.log(stars);
         currentRow++;
     }
 }
 
 leftTriangle();
-righttTriangle();
+console.log("");
+rightTriangle();

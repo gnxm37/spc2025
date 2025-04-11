@@ -51,7 +51,7 @@
             </div>
             <div id="nameError" class="text-danger small mb-2"></div>
 
-            <!-- 생년월일 캘린더 활용-->
+            <!-- 생년월일 -->
             <label for="calendar" class="form-label mb-0"> 생년월일 </label>
             <div class="input-group mb-0">
                 <span class="input-group-text" id="basic-addon1">
@@ -107,40 +107,72 @@
         form.addEventListener('submit', (event) => {
             event.preventDefault();
 
+            // 1. 필드 값 받아오기
             const interest = document.querySelectorAll('input[name="interest"]:checked');
-            const formData = new FormData(form);
-            const username = formData.get('username');
-            const password = formData.get('password');
-            const name = formData.get('name');
-            const date = formData.get('date');
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
+            const name = nameInput.value.trim();
+            const date = dateInput.value.trim();
             const sum = interest.length;
+
+            // 2. 유효성 검사 (submit 시에도 실행)
+            let isValid = true;
+
+            if (username.length < 3 || username.length > 10) {
+                usernameError.innerHTML = `<div class="text-danger small">3~10글자로 입력하세요.</div>`;
+                isValid = false;
+            } else {
+                usernameError.innerHTML = "";
+            }
+
+            if (password.length < 8) {
+                passwordError.innerHTML = `<div class="text-danger small">대소문자, 숫자/특수문자 포함 8자 이상 입력해주세요.</div>`;
+                isValid = false;
+            } else {
+                passwordError.innerHTML = "";
+            }
+
+            if (name.length < 1 || name.length > 10) {
+                nameError.innerHTML = `<div class="text-danger small">1~10글자로 입력하세요.</div>`;
+                isValid = false;
+            } else {
+                nameError.innerHTML = "";
+            }
+
+            if (date === "") {
+                dateError.innerHTML = `<div class="text-danger small">날짜 입력하세요.</div>`;
+                isValid = false;
+            } else {
+                dateError.innerHTML = "";
+            }
 
             if (sum < 1 || sum > 3) {
                 formResult.innerHTML = `<div class="text-danger small">관심 분야를 최소 1개, 최대 3개 선택해주세요.</div>`;
-            } else if (sum >= 1 && sum <= 3) {
+                isValid = false;
+            } else {
                 formResult.innerHTML = "";
             }
 
-            if ((usernameError.innerText == "") && (passwordError.innerText == "") && (nameError.innerText == "") && (dateError.innerText == "") && (formResult.innerText == "")) {
+            // 3. 최종 결과 출력
+            if (isValid) {
                 resultDiv.innerHTML = `
-                    <div class='alert alert-success mb-2'>
-                        <h5> 폼 데이터 제출 완료! </h5>
-                        <p><strong>사용자명:</strong> ${username} </p>
-                        <p><strong>비밀번호:</strong> ${password} </p>
-                        <p><strong>이름:</strong> ${name} </p>
-                        <p><strong>생년월일:</strong> ${date} </p>
-                        </div>
-                        `;
-
+            <div class='alert alert-success mb-2'>
+                <h5> 폼 데이터 제출 완료! </h5>
+                <p><strong>사용자명:</strong> ${username} </p>
+                <p><strong>비밀번호:</strong> ${password} </p>
+                <p><strong>이름:</strong> ${name} </p>
+                <p><strong>생년월일:</strong> ${date} </p>
+            </div>
+        `;
             } else {
                 resultDiv.innerHTML = `
-                    <div class='alert alert-warning mb-2'>
-                    <p> 폼 데이터 오류 </p>
-                    </div>
-                    `;
+            <div class='alert alert-warning mb-2'>
+                <p> 폼 데이터 오류 </p>
+            </div>
+        `;
             }
+        });
 
-        })
 
         usernameInput.addEventListener('blur', () => {
             const username = usernameInput.value.trim();
