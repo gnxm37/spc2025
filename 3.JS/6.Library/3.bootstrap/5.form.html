@@ -65,27 +65,27 @@
             <label class="form-label"> 관심 분야 (최소 1개, 최대 3개 선택) </label>
             <div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="interest1" id="interest1">
+                    <input class="form-check-input" type="checkbox" value="interest1" id="interest1" name="interest">
                     <label class="form-check-label" for="interest1">관심 분야 1</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="interest2" id="interest2">
+                    <input class="form-check-input" type="checkbox" value="interest2" id="interest2" name="interest">
                     <label class="form-check-label" for="interest2">관심 분야 2</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="interest3" id="interest3">
+                    <input class="form-check-input" type="checkbox" value="interest3" id="interest3" name="interest">
                     <label class="form-check-label" for="interest3">관심 분야 3</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="interest4" id="interest4">
+                    <input class="form-check-input" type="checkbox" value="interest4" id="interest4" name="interest">
                     <label class="form-check-label" for="interest4">관심 분야 4</label>
                 </div>
             </div>
+            <div id="formResult" class="text-danger small mb-2"></div>
 
             <!-- 제출 -->
             <button type="submit" class="btn btn-primary mt-3">제출</button>
         </form>
-
         <!-- 결과출력할 공간 -->
         <div id="result" class="mt-4"></div>
 
@@ -102,26 +102,44 @@
         const nameError = document.getElementById('nameError');
         const dateInput = document.getElementById('date');
         const dateError = document.getElementById('dateError');
+        const formResult = document.getElementById('formResult');
 
         form.addEventListener('submit', (event) => {
             event.preventDefault();
 
+            const interest = document.querySelectorAll('input[name="interest"]:checked');
             const formData = new FormData(form);
             const username = formData.get('username');
             const password = formData.get('password');
             const name = formData.get('name');
             const date = formData.get('date');
-            // const date = formData.get('date');
+            const sum = interest.length;
 
-            resultDiv.innerHTML = `
-                <div class='alert alert-success'>
-                    <h5> 폼 데이터 제출 완료! </h5>
-                    <p><strong>사용자명:</strong> ${username} </p>
-                    <p><strong>비밀번호:</strong> ${password} </p>
-                    <p><strong>이름:</strong> ${name} </p>
-                    <p><strong>생년월일:</strong> ${date} </p>
-                </div>
-                `;
+            if (sum < 1 || sum > 3) {
+                formResult.innerHTML = `<div class="text-danger small">관심 분야를 최소 1개, 최대 3개 선택해주세요.</div>`;
+            } else if (sum >= 1 && sum <= 3) {
+                formResult.innerHTML = "";
+            }
+
+            if ((usernameError.innerText == "") && (passwordError.innerText == "") && (nameError.innerText == "") && (dateError.innerText == "") && (formResult.innerText == "")) {
+                resultDiv.innerHTML = `
+                    <div class='alert alert-success mb-2'>
+                        <h5> 폼 데이터 제출 완료! </h5>
+                        <p><strong>사용자명:</strong> ${username} </p>
+                        <p><strong>비밀번호:</strong> ${password} </p>
+                        <p><strong>이름:</strong> ${name} </p>
+                        <p><strong>생년월일:</strong> ${date} </p>
+                        </div>
+                        `;
+
+            } else {
+                resultDiv.innerHTML = `
+                    <div class='alert alert-warning mb-2'>
+                    <p> 폼 데이터 오류 </p>
+                    </div>
+                    `;
+            }
+
         })
 
         usernameInput.addEventListener('blur', () => {
@@ -138,7 +156,6 @@
             const password = passwordInput.value.trim();
             if (password.length < 8) {
                 passwordError.innerHTML = `<div class="text-danger small">대소문자, 숫자/특수문자 포함 8자 이상 입력해주세요.</div>`;
-
             } else {
                 passwordError.innerHTML = "";
             }
@@ -153,10 +170,10 @@
                 nameError.innerHTML = "";
             }
         });
-        
+
         dateInput.addEventListener('blur', () => {
             const date = dateInput.value.trim();
-            if (date=="") {
+            if (date == "") {
                 dateError.innerHTML = `<div class="text-danger small">날짜 입력하세요.</div>`;
             } else {
                 dateError.innerHTML = "";
