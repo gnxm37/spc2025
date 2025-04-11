@@ -59,6 +59,7 @@
                 </span>
                 <input type="date" id="date" name="date" class="form-control">
             </div>
+            <div id="dateError" class="text-danger small mb-2"></div>
 
             <!-- 관심분야 -->
             <label class="form-label"> 관심 분야 (최소 1개, 최대 3개 선택) </label>
@@ -99,6 +100,8 @@
         const passwordError = document.getElementById('passwordError');
         const nameInput = document.getElementById('name');
         const nameError = document.getElementById('nameError');
+        const dateInput = document.getElementById('date');
+        const dateError = document.getElementById('dateError');
 
         form.addEventListener('submit', (event) => {
             event.preventDefault();
@@ -148,6 +151,15 @@
 
             } else {
                 nameError.innerHTML = "";
+            }
+        });
+        
+        dateInput.addEventListener('blur', () => {
+            const date = dateInput.value.trim();
+            if (date=="") {
+                dateError.innerHTML = `<div class="text-danger small">날짜 입력하세요.</div>`;
+            } else {
+                dateError.innerHTML = "";
             }
         });
 
