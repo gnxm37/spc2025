@@ -6,7 +6,7 @@ const person = new Person('유진');
 const person_greet = person.greet();
 console.log(person_greet);
 
-const employee = new Employee('민수','강사');
+const employee = new Employee('민유','강사');
 const employee_greet = employee.greet();
 console.log(employee_greet);
 

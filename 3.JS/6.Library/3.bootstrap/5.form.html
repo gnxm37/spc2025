@@ -115,7 +115,7 @@
             const date = dateInput.value.trim();
             const sum = interest.length;
 
-            // 2. 유효성 검사 (submit 시에도 실행)
+            // 2. 유효성 검사
             let isValid = true;
 
             if (username.length < 3 || username.length > 10) {
@@ -153,7 +153,7 @@
                 formResult.innerHTML = "";
             }
 
-            // 3. 최종 결과 출력
+            // 3. 결과
             if (isValid) {
                 resultDiv.innerHTML = `
             <div class='alert alert-success mb-2'>

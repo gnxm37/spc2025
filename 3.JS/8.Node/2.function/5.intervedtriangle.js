@@ -1,4 +1,4 @@
-const ROWS = 5;
+const ROWS = 7;
 
 function leftintervedTriangle() {
     let currentRow = 1;

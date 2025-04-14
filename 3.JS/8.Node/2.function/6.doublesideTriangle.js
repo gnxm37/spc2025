@@ -1,4 +1,4 @@
-const ROWS = 9;
+const ROWS = 17;
 
 function doublesideTriangle() {
     let startPoint = Math.ceil(ROWS / 2);
