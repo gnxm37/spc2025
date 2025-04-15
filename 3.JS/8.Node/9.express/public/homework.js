@@ -1,46 +1,50 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('form');
-    const username = document.getElementById('username');
+    const usernicknameInput = document.getElementById('usernicknameInput');
+    const usernameInput = document.getElementById('usernameInput');
+    const ageInput = document.getElementById('ageInput');
     const userTable = document.getElementById('userTable');
 
-    // 최초 페이지가 호출될때, 백엔드에 데이터 요청.
     updateTable();
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const usernickname = usernicknameInput.value;
+        const username = usernameInput.value;
+        const age = ageInput.value;
 
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const name = username.value;
-        
-        console.log('생성할 이름: ', name);
         fetch('/users', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({name})
+            body: JSON.stringify({usernickname, username, age})
         })
-        
-        username.value = ''; // 입력칸 비우기
-        updateTable();
-    })
 
-    // 버튼을 만들고, 콜백함수 등록하는 함수를 만드는중...
-    function createButton(text, clickHandler) {
+        usernicknameInput.value='';
+        usernameInput.value='';
+        ageInput.value='';
+
+        updateTable();
+    });
+
+    function createButton(text, clickHandler){
         const button = document.createElement('button');
         button.textContent = text;
         button.addEventListener('click', clickHandler);
         return button;
     }
 
-    function updateTable() {
-        userTable.innerHTML = ''; // 이전 내용 삭제
+    function updateTable(){
+        userTable.innerHTML = "";
 
         fetch('/users')
             .then(res => res.json())
             .then(users => {
-                // console.log(users);
                 for (const key in users) {
                     const row = document.createElement('div');
                     row.innerHTML = `
                         <strong>ID:</strong> ${key},
-                        <strong>Name:</strong> ${users[key]}
+                        <strong>닉네임:</strong> ${users[key].usernickname}
+                        <strong>이름:</strong> ${users[key].username}
+                        <strong>나이:</strong> ${users[key].age}
                     `
 
                     // 버튼 만들기 함수 호출
@@ -58,7 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch(`/users/${userId}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: newName })
+            body: JSON.stringify({ 
+                username: newName
+            })
         })
             .then(res => { // 나머지 모든 부분에서도 이런식으로 에러처리를 해야 좋음.
                 if (!res.ok) throw new Error('수정 실패');
@@ -91,11 +97,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 미션1. 입력이 끝났으면, 입력칸 클리어 하기
-    // 미션2. 입력이 끝났으면, 서버에 정보를 요청해서 화면에 표시하기
-
-    // 미션3. 사용자 목록에 "수정", "삭제" 버튼 추가하기
-
-    // 미션4. "삭제" 기능 구현
-    // 미션5. "수정" 기능 구현
 });
