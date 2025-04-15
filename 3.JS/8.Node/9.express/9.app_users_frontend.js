@@ -48,21 +48,6 @@ app.put('/users/:id', (req, res) => {
 
 // 사용자 삭제 라우트 및 함수
 app.delete('/users/:id', (req, res) => {
-    const confirmDelete = confirm('정말로 삭제하시겠습니까?');
-    if (confirmDelete){
-        fetch(`/users/${userId}`, {
-            method: 'DELETE'
-        })
-        .then(res => {
-            if(!res.ok) throw new Error('삭제 실패');
-            updateTable();
-            alert('삭제 성공');
-        })
-        .catch(error => {
-            console.error('삭제중 오류발생 : ', error);
-            alert('삭제중 오류발생');
-        })
-    }
     console.log('사용자 삭제, ', req.params.id);
 
     const id = req.params.id
