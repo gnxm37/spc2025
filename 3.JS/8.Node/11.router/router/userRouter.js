@@ -1,11 +1,12 @@
 const express = require('express');
-s
+const router = express.Router();
 
-router.get('/user/profile', (req, res) => {
+router.get('/profile', (req, res) => {
     res.send('사용자 > 프로필');
-})
-router.get('/user/settings', (req, res) => {
+});
+
+router.get('/settings', (req, res) => {
     res.send('사용자 > 셋팅');
-})
+});
 
 module.exports = router;
