@@ -1,21 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    .editmodal {
+        display: none;
+        position: fixed;
+        padding: 10px;
+        top: 10%;
+        left: 30%;
+        width: 40%;
+        height: 15%;
+        background: rgba(255, 255, 255, 1);
+        border: 1px solid black;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .removemodal {
+        display: none;
+        position: fixed;
+        padding: 10px;
+        top: 10%;
+        left: 30%;
+        width: 40%;
+        height: 15%;
+        background: rgba(255, 255, 255, 1);
+        border: 1px solid black;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
 <body>
     <h1>Users!</h1>
     <form id="form">
-        <input type="text" id="usernicknameInput" placeholder="닉네임"/>
-        <input type="text" id="usernameInput" placeholder="이름"/>
-        <input type="text" id="ageInput" placeholder="나이"/>
+        <input type="text" id="usernicknameInput" placeholder="닉네임" />
+        <input type="text" id="usernameInput" placeholder="이름" />
+        <input type="text" id="ageInput" placeholder="나이" />
         <button type="submit">등록</button>
     </form>
     <div id="userTable">
         <!-- 여기에 실제 사용자 목록이 출력됨 -->
     </div>
+    <button id="openModal">사용자 수정 모달 열기</button>
+    <div id="editmodal" class="editmodal">
+        <form id="editForm">
+            <strong>
+                <div>사용자 수정</div>
+            </strong>
+            <input type="text" id="changeusernicknameInput" placeholder="변경할 닉네임" />
+            <input type="text" id="changeusernameInput" placeholder="변경할 이름" />
+            <input type="text" id="changeageInput" placeholder="변경할 나이" />
+            <div>
+                <button type="submit" id="changeButton">저장</button>
+                <button type="submit" id="closeButton" class="close">취소</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="removemodal" class="removemodal">
+        <form id="removeForm">
+            <div>정말로 삭제하시겠습니까?</div>
+            <div>
+                <button type="submit" id="yesButton">예</button>
+                <button type="submit" id="noButton" class="close">아니오</button>
+            </div>
+        </form>
+    </div>
+
     <script src="homework.js"></script>
 </body>
+
 </html>
