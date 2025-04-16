@@ -15,27 +15,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const changeageInput = document.getElementById('changeageInput');
     const changeusernameInput = document.getElementById('changeusernameInput');
     const changeusernicknameInput = document.getElementById('changeusernicknameInput');
-    
+
     const noButton = document.getElementById('noButton');
     const yesButton = document.getElementById('yesButton');
 
-    openModal.addEventListener('click', () => {
-        editmodal.style.display = 'flex';
-    });
-
-    closeButton.addEventListener('click', () => {
-        editmodal.style.display = 'none';
-    });
-
-    // 
     updateTable();
-    form.addEventListener('submit', (event) => {
+    form.addEventListener('submit', async (event) => {
         event.preventDefault();
         const usernickname = usernicknameInput.value;
         const username = usernameInput.value;
         const age = ageInput.value;
 
-        fetch('/users', {
+        const res = await fetch('/users', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ usernickname, username, age })
@@ -55,28 +46,28 @@ document.addEventListener('DOMContentLoaded', () => {
         return button;
     }
 
-    function updateTable() {
+    async function updateTable() {
         userTable.innerHTML = "";
 
-        fetch('/users')
-            .then(res => res.json())
-            .then(users => {
-                for (const key in users) {
-                    const row = document.createElement('div');
-                    row.innerHTML = `
+        const res = await fetch('/users');
+        const users = await res.json();
+
+        for (const key in users) {
+            const row = document.createElement('div');
+            row.innerHTML = `
                         <strong>ID:</strong> ${key},
                         <strong>닉네임:</strong> ${users[key].usernickname}
                         <strong>이름:</strong> ${users[key].username}
                         <strong>나이:</strong> ${users[key].age}
                     `
 
-                    // 버튼 만들기 함수 호출
-                    row.appendChild(createButton('수정', () => editUser(key)));
-                    row.appendChild(createButton('삭제', () => deleteUser(key)));
+            // 버튼 만들기 함수 호출
+            row.appendChild(createButton('수정', () => editUser(key)));
+            row.appendChild(createButton('삭제', () => deleteUser(key)));
 
-                    userTable.appendChild(row);
-                }
-            })
+            userTable.appendChild(row);
+        }
+
     }
 
     function editUser(userId) {
@@ -99,12 +90,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(res => { // 나머지 모든 부분에서도 이런식으로 에러처리를 해야 좋음.
                     if (!res.ok) throw new Error('수정 실패');
                     updateTable();
-                    removemodal.style.display = 'none';
+                    editmodal.style.display = 'none';
                 })
                 .catch(error => {
-                    alert('수정 중 오류 발생');
+                    alert('수정 중 오류 발생', error);
                 });
         })
+        changeageInput.value = "";
+        changeusernameInput.value = "";
+        changeusernicknameInput.value = "";
     }
 
     function deleteUser(userId) {

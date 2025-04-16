@@ -1,4 +1,5 @@
 const express = require('express');
+const morgan = require('morgan');
 const path = require('path');
 
 const app = express();
@@ -30,32 +31,42 @@ app.get('/users', (req, res) => {
 app.post('/users', (req, res) => {
     console.log('사용자 생성: ', req.body);
 
-    const name = req.body.name;
+    try {
+        const name = req.body.name;
+        users[nextId++] = name;  // 나의 key 도 이름, value 도 이름이다.
+        res.status(201).send('등록 성공');
+    } catch (error) {
+        res.status(500).send('알수없는 오류가 발생했습니다.');
+    }
 
-    users[nextId++] = name;  // 나의 key 도 이름, value 도 이름이다.
-
-    res.send('사용자 생성');
 });
 
 // 사용자 수정 라우트 및 함수
 app.put('/users/:id', (req, res) => {
     console.log('사용자 수정');
-    const id = req.params.id;
 
-    users[id] = req.body.name;
-
-    res.send('사용자 수정');
+    try {
+        const id = req.params.id;
+        users[id] = req.body.name;
+        res.status(201).send('수정 성공');
+    } catch (error) {
+        res.status(500).send('서버 내부 오류');        
+    }
 });
 
 // 사용자 삭제 라우트 및 함수
 app.delete('/users/:id', (req, res) => {
     console.log('사용자 삭제, ', req.params.id);
-
-    const id = req.params.id
-
-    delete users[id];
-
-    res.send('사용자 삭제');
+    try {
+        const id = req.params.id
+        if(!users[id]){
+            return res.status(404).send(`해당 사용자(ID:${id}는 존재하지 않습니다.)`);
+        }
+        delete users[id];
+        res.status(204).send();
+    } catch (error) {
+        res.status(500).send('서버 내부 오류');     
+    }
 });
 
 app.listen(port, () => {
