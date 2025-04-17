@@ -1,4 +1,4 @@
-const NUM_OF_ITEMS_PER_PAGE = 5;
+const NUM_OF_ITEMS_PER_PAGE = 10;
 let start = 0;
 let end = start + NUM_OF_ITEMS_PER_PAGE;
 let isLoading = false;
