@@ -8,3 +8,11 @@ node_modules/
 
 # # 파이썬...
 # *.pyc
+
+# 윈도우 실행파일
+*.exe
+
+# 크리덴셜(Credential) 은 커밋 제외
+secret.txt
+.env
+
