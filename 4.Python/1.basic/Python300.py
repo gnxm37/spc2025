@@ -463,23 +463,152 @@ class 차:
         self.가격 = 가격
 
     def 정보(self):
-        print(f"바퀴수 {self.바퀴}")
-        print(f"가격 {self.가격}")
+        print("바퀴수 ", self.바퀴)
+        print("가격 ", self.가격)
+
+class 자동차(차):
+    def __init__(self, 바퀴, 가격):
+        super().__init__(바퀴, 가격)
 
 class 자전차(차):
     def __init__(self, 바퀴, 가격, 구동계):
         super().__init__(바퀴, 가격)
         self.구동계 = 구동계
-
+        
+    def 정보(self):    
+        super().정보()
+        print("구동계", self.구동계)
 
 # car = 차(2, 1000)
 # print(car.바퀴)
 # print(car.가격)
 
-
 print("-" * 20)
+
 # bicycle = 자전차(2, 100)
 # print(bicycle.가격)
 
+# bicycle = 자전차(2, 100, "시마노")
+# print(bicycle.구동계)
+
+# car = 자동차(4, 1000)
+# car.정보()
+
+# bicycle = 자전차(2, 100, "시마노")
+# bicycle.정보()
+
 bicycle = 자전차(2, 100, "시마노")
-print(bicycle.구동계)
+bicycle.정보()
+
+# class 부모:
+#   def 호출(self):
+#     print("부모호출")
+
+# class 자식(부모):
+#   def 호출(self):
+#     print("자식호출")
+
+# 나 = 자식()
+# 나.호출()
+
+print("-" * 20)
+
+# class 부모:
+#   def __init__(self):
+#     print("부모생성")
+
+# class 자식(부모):
+#   def __init__(self):
+#     print("자식생성")
+
+# 나 = 자식()
+
+class 부모:
+  def __init__(self):
+    print("부모생성")
+
+class 자식(부모):
+  def __init__(self):
+    print("자식생성")
+    super().__init__()
+
+나 = 자식()
+
+# 291 ~ 300
+
+f = open("매수종목1.txt", mode="wt", encoding="utf-8")
+f.write("005930\n")
+f.write("005380\n")
+f.write("035420")
+f.close()
+
+f = open("매수종목2.txt", mode="wt", encoding="utf-8")
+f.write("005930 삼성전자\n")
+f.write("005380 현대차\n")
+f.write("035420 NAVER")
+f.close()
+
+f = open("매수종목.csv", mode="wt", encoding="utf-8")
+f.write("종목명,종목코드,PER\n")
+f.write("삼성전자,005930,15.79\n")
+f.write("NAVER,035420,55.82")
+f.close()
+
+f = open("매수종목1.txt", mode="rt", encoding="utf-8")
+li = []
+for i in f.readlines():
+    li.append(i.replace("\n",""))
+print(li)
+f.close()
+
+f = open("매수종목2.txt", mode="rt", encoding="utf-8")
+dic = {}
+for i in f.readlines():
+    i = i.strip()
+    a, b = i.split()
+    dic[a] = b
+print(dic)
+f.close()
+
+per = ["10.31", "", "8.00"]
+
+for i in per:
+    try:
+        print(float(i))
+    except:
+        print(0)
+
+per = ["10.31", "", "8.00"]
+
+listnum = []
+for i in per:
+    try:
+        listnum.append(float(i))
+    except:
+        print(0)
+
+print(listnum)
+
+print("-" * 20)
+
+data = [1, 2, 3]
+
+for i in range(5):
+    try:
+        print(data[i])
+    except IndexError as e:
+        print("error")
+
+print("-" * 20)
+
+per = ["10.31", "", "8.00"]
+
+for i in per:
+    try:
+        print(float(i))
+    except:
+        print("예외가 발생했어요")
+    else:
+        print("깔끔하게 해결됐어요")
+    finally:
+        print("-"*10)
