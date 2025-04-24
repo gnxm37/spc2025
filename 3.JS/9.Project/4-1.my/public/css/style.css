@@ -71,6 +71,14 @@ nav a:hover {
     float: right;
     color: white;
     padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* 요소 사이 간격 */
+}
+
+#user-info a {
+    color: white;
+    text-decoration: underline;
 }
 
 .logout-btn {

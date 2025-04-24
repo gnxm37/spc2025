@@ -16,4 +16,3 @@ INSERT INTO users (username, password) VALUES ('user2', 'password2');
 INSERT INTO products (name, price) VALUES ('Apple', 2000);
 INSERT INTO products (name, price)VALUES ('Banana', 3000);
 INSERT INTO products (name, price)VALUES ('Orange', 1500);
-
