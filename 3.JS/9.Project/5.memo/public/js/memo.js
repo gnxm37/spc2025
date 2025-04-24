@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
 async function memoSave() {
     const title = document.getElementById('title').value;
     const textarea = document.getElementById('textarea').value;
+    const fileInput = document.getElementById('fileInput');
+
+    const file = fileInput.files[0];
+    console.log(file.name);
 
     const write = document.querySelector('.memo-list');
     const memo = document.createElement('div');
@@ -19,6 +23,20 @@ async function memoSave() {
 
     const h6 = document.createElement('h6');
     h6.textContent = textarea;
+
+    const img = document.createElement('img');
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+            img.src = event.target.result;
+            img.alt = `${file.name}`;
+        };
+        reader.readAsDataURL(file);
+    } else {
+        img.src = '';
+    }
 
     // 버튼 그룹
     const btnGroup = document.createElement('div');
@@ -37,6 +55,7 @@ async function memoSave() {
     // 구성
     btnGroup.appendChild(editBtn);
     btnGroup.appendChild(delBtn);
+    memo.appendChild(img);
     memo.appendChild(h5);
     memo.appendChild(h6);
     memo.appendChild(btnGroup);
@@ -44,12 +63,14 @@ async function memoSave() {
 
     document.getElementById('title').value = "";
     document.getElementById('textarea').value = "";
+
     // 수정 이벤트
     editBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        
+
         btnGroup.removeChild(editBtn);
         btnGroup.removeChild(delBtn);
+        memo.removeChild(img);
         memo.removeChild(h5);
         memo.removeChild(h6);
         memo.removeChild(btnGroup);
@@ -57,9 +78,27 @@ async function memoSave() {
         const editTitle = document.createElement('input');
         editTitle.type = 'text';
         editTitle.placeholder = `${title}`;
-        
+
         const editText = document.createElement('textarea');
         editText.placeholder = `${textarea}`;
+
+        const fileInput = document.createElement('input');
+        fileInput.type = "file";
+        fileInput.placeholder = " 선택된 파일 없음";
+        fileInput.id = "fileInput";
+        fileInput.accept = "image/*";
+
+        const label = document.createElement('label');
+        label.className = 'form-check-label';
+        label.style.marginBottom = '10px';
+
+        const checkBox = document.createElement('input');
+        checkBox.type = 'checkbox';
+        checkBox.className = 'form-check-input';
+        checkBox.style.marginRight = '5px';
+
+        label.appendChild(checkBox);
+        label.appendChild(document.createTextNode('이미지 삭제'));
 
         const editSaveBtn = document.createElement('button');
         editSaveBtn.type = 'submit';
@@ -69,14 +108,19 @@ async function memoSave() {
 
         memo.appendChild(editTitle);
         memo.appendChild(editText);
+        memo.appendChild(fileInput);
+        memo.appendChild(label);
         memo.appendChild(editSaveBtn);
 
+        // 수정 이벤트 -> 저장 이벤트
         editSaveBtn.addEventListener('click', (e) => {
             e.preventDefault();
             console.log('저장버튼');
 
             memo.removeChild(editTitle);
             memo.removeChild(editText);
+            memo.removeChild(fileInput);
+            memo.removeChild(label);
             memo.removeChild(editSaveBtn);
 
             const h5 = document.createElement('h5');
@@ -84,6 +128,21 @@ async function memoSave() {
 
             const h6 = document.createElement('h6');
             h6.textContent = editText.value;
+
+            if(file) {
+                const reader = new FileReader();
+
+                reader.onload = function (event) {
+                    img.src = event.target.result;
+                    img.alt = `${file.name}`;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                img.src = '';
+            }
+
+            const btnGroup = document.createElement('div');
+            btnGroup.className = "btn-group";
 
             const editBtn = document.createElement('button');
             editBtn.textContent = '수정';
@@ -97,6 +156,7 @@ async function memoSave() {
 
             btnGroup.appendChild(editBtn);
             btnGroup.appendChild(delBtn);
+            memo.appendChild(img);
             memo.appendChild(h5);
             memo.appendChild(h6);
             memo.appendChild(btnGroup);
