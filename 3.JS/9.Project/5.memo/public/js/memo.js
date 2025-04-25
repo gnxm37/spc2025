@@ -9,15 +9,12 @@ async function memoSave() {
     const title = document.getElementById('title').value;
     const textarea = document.getElementById('textarea').value;
     const fileInput = document.getElementById('fileInput');
-
     const file = fileInput.files[0];
-    console.log(file.name);
 
     const write = document.querySelector('.memo-list');
     const memo = document.createElement('div');
     memo.classList.add('memo');
 
-    // 제목과 내용
     const h5 = document.createElement('h5');
     h5.textContent = title;
 
@@ -25,20 +22,34 @@ async function memoSave() {
     h6.textContent = textarea;
 
     const img = document.createElement('img');
+    let imgSrc = '';
 
     if (file) {
         const reader = new FileReader();
-
         reader.onload = function (event) {
             img.src = event.target.result;
             img.alt = `${file.name}`;
+            imgSrc = img.src;
+            img.dataset.filename = file.name; // 이미지 파일명을 저장
         };
         reader.readAsDataURL(file);
-    } else {
-        img.src = '';
     }
 
-    // 버튼 그룹
+    memo.appendChild(img);
+    memo.appendChild(h5);
+    memo.appendChild(h6);
+
+    attachEditAndDeleteEvents(memo, title, textarea, imgSrc);
+    write.appendChild(memo);
+
+    document.getElementById('title').value = "";
+    document.getElementById('textarea').value = "";
+    document.getElementById('fileInput').value = "";
+
+    alert('저장 완료');
+}
+
+function attachEditAndDeleteEvents(memo, originalTitle, originalText, originalImgSrc) {
     const btnGroup = document.createElement('div');
     btnGroup.className = 'btn-group';
 
@@ -52,41 +63,28 @@ async function memoSave() {
     delBtn.className = 'btn btn-warning';
     delBtn.style.borderRadius = '5px';
 
-    // 구성
     btnGroup.appendChild(editBtn);
     btnGroup.appendChild(delBtn);
-    memo.appendChild(img);
-    memo.appendChild(h5);
-    memo.appendChild(h6);
     memo.appendChild(btnGroup);
-    write.appendChild(memo);
 
-    document.getElementById('title').value = "";
-    document.getElementById('textarea').value = "";
+    editBtn.addEventListener('click', () => {
+        const currentTitle = memo.querySelector('h5')?.textContent || originalTitle;
+        const currentText = memo.querySelector('h6')?.textContent || originalText;
+        const currentImg = memo.querySelector('img')?.src || originalImgSrc;
+        const imageFilename = memo.querySelector('img')?.dataset.filename || ''; // 이미지 파일명 가져오기
 
-    // 수정 이벤트
-    editBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        btnGroup.removeChild(editBtn);
-        btnGroup.removeChild(delBtn);
-        memo.removeChild(img);
-        memo.removeChild(h5);
-        memo.removeChild(h6);
-        memo.removeChild(btnGroup);
+        memo.innerHTML = '';
 
         const editTitle = document.createElement('input');
         editTitle.type = 'text';
-        editTitle.placeholder = `${title}`;
+        editTitle.value = currentTitle;
 
         const editText = document.createElement('textarea');
-        editText.placeholder = `${textarea}`;
+        editText.value = currentText;
 
-        const fileInput = document.createElement('input');
-        fileInput.type = "file";
-        fileInput.placeholder = " 선택된 파일 없음";
-        fileInput.id = "fileInput";
-        fileInput.accept = "image/*";
+        const editfileInput = document.createElement('input');
+        editfileInput.type = "file";
+        editfileInput.accept = "image/*";
 
         const label = document.createElement('label');
         label.className = 'form-check-label';
@@ -100,79 +98,89 @@ async function memoSave() {
         label.appendChild(checkBox);
         label.appendChild(document.createTextNode('이미지 삭제'));
 
-        const editSaveBtn = document.createElement('button');
-        editSaveBtn.type = 'submit';
-        editSaveBtn.textContent = '저장';
-        editSaveBtn.className = 'btn btn-primary';
-        editSaveBtn.style.borderRadius = '5px';
+        const saveBtn = document.createElement('button');
+        saveBtn.textContent = '저장';
+        saveBtn.className = 'btn btn-primary';
+        saveBtn.style.borderRadius = '5px';
 
         memo.appendChild(editTitle);
         memo.appendChild(editText);
-        memo.appendChild(fileInput);
+        memo.appendChild(editfileInput);
         memo.appendChild(label);
-        memo.appendChild(editSaveBtn);
+        memo.appendChild(saveBtn);
 
-        // 수정 이벤트 -> 저장 이벤트
-        editSaveBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            console.log('저장버튼');
+        saveBtn.addEventListener('click', async() => {
+            const newTitle = editTitle.value;
+            const newText = editText.value;
+            const newFile = editfileInput.files[0];
+            const isDeleteImage = checkBox.checked;
 
-            memo.removeChild(editTitle);
-            memo.removeChild(editText);
-            memo.removeChild(fileInput);
-            memo.removeChild(label);
-            memo.removeChild(editSaveBtn);
+            memo.innerHTML = '';
 
             const h5 = document.createElement('h5');
-            h5.textContent = editTitle.value;
+            h5.textContent = newTitle;
 
             const h6 = document.createElement('h6');
-            h6.textContent = editText.value;
+            h6.textContent = newText;
 
-            if(file) {
+            const newImg = document.createElement('img');
+            let finalImgSrc = '';
+
+            if (newFile && !isDeleteImage) {
                 const reader = new FileReader();
-
                 reader.onload = function (event) {
-                    img.src = event.target.result;
-                    img.alt = `${file.name}`;
+                    newImg.src = event.target.result;
+                    finalImgSrc = newImg.src;
+                    memo.insertBefore(newImg, memo.firstChild);
                 };
-                reader.readAsDataURL(file);
-            } else {
-                img.src = '';
+                reader.readAsDataURL(newFile);
+            } else if (!isDeleteImage && currentImg) {
+                newImg.src = currentImg;
+                finalImgSrc = currentImg;
+                memo.insertBefore(newImg, memo.firstChild);
+            } else if (isDeleteImage && currentImg) {
+                const imageFilename = memo.querySelector('img')?.dataset.filename;
+
+                if (imageFilename) {
+                    const response = await fetch(`/image/${imageFilename}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (response.ok) {
+                        console.log('서버 이미지 삭제 성공');
+                    } else {
+                        console.error('서버에서 이미지 삭제 실패');
+                    }
+                }
+
+                memo.querySelector('img')?.remove(); // 클라이언트에서 이미지 제거
+                finalImgSrc = ''; // 이미지 경로 초기화
             }
 
-            const btnGroup = document.createElement('div');
-            btnGroup.className = "btn-group";
-
-            const editBtn = document.createElement('button');
-            editBtn.textContent = '수정';
-            editBtn.className = 'btn btn-info';
-            editBtn.style.borderRadius = '5px';
-
-            const delBtn = document.createElement('button');
-            delBtn.textContent = '삭제';
-            delBtn.className = 'btn btn-warning';
-            delBtn.style.borderRadius = '5px';
-
-            btnGroup.appendChild(editBtn);
-            btnGroup.appendChild(delBtn);
-            memo.appendChild(img);
             memo.appendChild(h5);
             memo.appendChild(h6);
-            memo.appendChild(btnGroup);
-            write.replaceChild(memo);
 
-            alert('수정 완료')
-        })
-        console.log('에디트 버튼');
+            attachEditAndDeleteEvents(memo, newTitle, newText, finalImgSrc);
+            alert('수정 완료');
+        });
     });
 
-    // 삭제 이벤트
-    delBtn.addEventListener('click', () => {
+    delBtn.addEventListener('click', async () => {
+        // 삭제 버튼 클릭 시, 이미지 파일을 서버에서 삭제
+        const imageFilename = memo.querySelector('img')?.dataset.filename;
+        if (imageFilename) {
+            const response = await fetch(`/image/${imageFilename}`, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                console.log('서버 이미지 삭제 성공');
+            } else {
+                console.error('서버에서 이미지 삭제 실패');
+            }
+        }
+
         memo.remove();
-        console.log('딜리트 버튼');
-        alert('삭제 완료')
+        alert('삭제 완료');
     });
-
-    alert('저장 완료')
 }
