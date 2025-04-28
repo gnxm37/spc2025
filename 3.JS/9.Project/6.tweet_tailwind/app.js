@@ -141,6 +141,24 @@ app.get('/api/edit', loginRequired, (req, res) => {
     res.json(user);
 })
 
+app.post('/api/editDB', loginRequired, (req, res) => {
+    const { username, email, originaluser } = req.body;
+
+    const query = 'UPDATE user SET username = ?, email = ? WHERE username = ?';
+    db.run(query, [username, email, originaluser.username]);
+
+    res.json({ message: '사용자 수정 완료', username: username, email: email });
+})
+
+app.post('/api/register', (req, res) => {
+    const { name, email, password } = req.body;
+
+    const query = 'INSERT INTO user (username, email, password)VALUES (?, ?, ?)';
+    db.run(query, [name, email, password]);
+
+    res.json({ message: '사용자 추가 완료(회원가입)', redirectUrl: '/index.html'})
+})
+
 // 메인 API <--
 
 // 서버 시작

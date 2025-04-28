@@ -11,7 +11,7 @@ async function register() {
     const password = document.getElementById('passwordInput').value;
 
     try {
-        const response = await fetch('/registerSubmit', {
+        const response = await fetch('/api/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
