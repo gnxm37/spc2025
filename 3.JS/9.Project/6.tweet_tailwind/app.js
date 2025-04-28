@@ -92,7 +92,7 @@ app.get('/api/tweets', (req, res) => {
             })
         } else {
             res.json(tweets.map(tweet => ({...tweet, liked_by_current_user: false})));
-        };
+        }
     });
 });
 
@@ -143,7 +143,8 @@ app.get('/api/edit', loginRequired, (req, res) => {
 
 app.post('/api/editDB', loginRequired, (req, res) => {
     const { username, email, originaluser } = req.body;
-
+    req.session.user.username = username;
+    req.session.user.email = email;
     const query = 'UPDATE user SET username = ?, email = ? WHERE username = ?';
     db.run(query, [username, email, originaluser.username]);
 
@@ -157,7 +158,7 @@ app.post('/api/register', (req, res) => {
     db.run(query, [name, email, password]);
 
     res.json({ message: '사용자 추가 완료(회원가입)', redirectUrl: '/index.html'})
-});
+})
 
 // 메인 API <--
 

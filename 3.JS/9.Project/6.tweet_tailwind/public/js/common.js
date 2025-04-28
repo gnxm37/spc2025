@@ -1,5 +1,5 @@
 let user = null;
-
+let count = 0;
 document.addEventListener('DOMContentLoaded', async () => {
     const userinfoDiv = document.getElementById('userinfoDiv');
 
@@ -8,15 +8,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
     user = await response.json();
 
-    userinfoDiv.innerHTML = `
-        <h2>프로필</h2>
-        <p id="userinfoEdit">        
-        <strong>사용자 이름 : </strong>${user.username}
-        <br><br>
-        <strong>이메일 : </strong>${user.email}
-        </p>
-        <a href="#" onclick="edit()">프로필 수정</a>
-    `;
+    if (count == 0){
+        userinfoDiv.innerHTML = `
+            <h2>프로필</h2>
+            <p id="userinfoEdit">        
+            <strong>사용자 이름 : </strong>${user.username}
+            <br><br>
+            <strong>이메일 : </strong>${user.email}
+            </p>
+            <a href="#" onclick="edit()">프로필 수정</a>
+        `;
+    }
     buttons();
 });
 
@@ -47,7 +49,7 @@ async function edit() {
     const response = await fetch('/api/edit', {
         method: 'GET'
     });
-    const user = await response.json();
+    user = await response.json();
 
     if(response.ok) {
         userinfoDiv.innerHTML = `
@@ -69,17 +71,18 @@ async function edit() {
 };
 
 async function save(event) {
+    count = 1;
     event.preventDefault();
-
     const res = await fetch('/api/edit', {
         method: 'GET'
     });
     const originaluser = await res.json();
-
+    
     const userinfoDiv = document.getElementById('userinfoDiv');
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
-
+    userinfoDiv.innerHTML = "";
+    
     const response = await fetch('/api/editDB', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -89,17 +92,24 @@ async function save(event) {
             originaluser : originaluser
         })
     });
-    const user = await response.json();
+    
+    user = await response.json();
 
-    userinfoDiv.innerHTML = `
-        <h2>프로필</h2>
-        <p id="userinfoEdit">
-        <strong>사용자 이름 : </strong>${user.username}
-        <br><br>
-        <strong>이메일 : </strong>${user.email}
-        </p>
-        <a href="#" onclick="edit()">프로필 수정</a>
-    `;
+    if (response.ok) {
+        // 프로필 갱신 후 바로 업데이트
+        userinfoDiv.innerHTML = `
+            <h2>프로필</h2>
+            <p id="userinfoEdit">
+                <strong>사용자 이름 : </strong>${user.username}
+                <br><br>
+                <strong>이메일 : </strong>${user.email}
+            </p>
+            <a href="#" onclick="edit()">프로필 수정</a>
+        `;
+    } else {
+        alert('프로필 수정 실패');
+    }
+
 };
 
 async function buttons() {
