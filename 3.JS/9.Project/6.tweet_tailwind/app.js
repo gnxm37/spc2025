@@ -35,7 +35,7 @@ function loginRequired(req, res, next) {
         return res.status(401).json({error: '로그인이 필요합니다'})
     };
     next();
-}
+};
 
 // 메인 API -->
 app.post('/api/login', (req, res) => {
@@ -55,14 +55,14 @@ app.post('/api/login', (req, res) => {
         };
 
         res.json({ message: '로그인 성공!' });
-    })
+    });
 });
 
 app.post('/api/logout', loginRequired, (req, res) => {
     req.session.destroy(() => {
         res.json({ message: '로그아웃 성공!' });
     });
-})
+});
 
 app.get('/api/tweets', (req, res) => {
     const query = `
@@ -92,8 +92,8 @@ app.get('/api/tweets', (req, res) => {
             })
         } else {
             res.json(tweets.map(tweet => ({...tweet, liked_by_current_user: false})));
-        }
-    })
+        };
+    });
 });
 
 app.post('/api/tweet', loginRequired, (req, res) => {
@@ -139,7 +139,7 @@ app.post('/api/unlike/:tweet_id', loginRequired, (req, res) => {
 app.get('/api/edit', loginRequired, (req, res) => {
     const user = req.session.user;
     res.json(user);
-})
+});
 
 app.post('/api/editDB', loginRequired, (req, res) => {
     const { username, email, originaluser } = req.body;
@@ -148,7 +148,7 @@ app.post('/api/editDB', loginRequired, (req, res) => {
     db.run(query, [username, email, originaluser.username]);
 
     res.json({ message: '사용자 수정 완료', username: username, email: email });
-})
+});
 
 app.post('/api/register', (req, res) => {
     const { name, email, password } = req.body;
@@ -157,7 +157,7 @@ app.post('/api/register', (req, res) => {
     db.run(query, [name, email, password]);
 
     res.json({ message: '사용자 추가 완료(회원가입)', redirectUrl: '/index.html'})
-})
+});
 
 // 메인 API <--
 

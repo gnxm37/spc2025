@@ -23,7 +23,6 @@ async function unlikeTweet(id) {
     if (!res.ok) {
         alert(data.error);
     } else {
-        // alert(data.message);
         // window.location.href ='/index.html' // 화면 깜빡거리게 갱신할거냐..
         renderTweets(); // 조용히 DOM을 새로 그릴거냐...
     }
@@ -60,6 +59,30 @@ async function renderTweets() {
         `
         tweetsDiv.appendChild(div);
     })
+    
+    buttons();
 }
 
 document.addEventListener('DOMContentLoaded', renderTweets);
+
+async function buttons() {
+    const login = document.getElementById('login');
+    const logout = document.getElementById('logout');
+    const profile = document.getElementById('profile');
+    const tweet = document.getElementById('tweet');
+    const register = document.getElementById('register');
+    
+    if (user && user.username) {
+        logout.style.display = 'inline-block';  // 'inline-block'으로 설정하여 가로 정렬
+        profile.style.display = 'inline-block';
+        tweet.style.display = 'inline-block';
+        login.style.display = 'none';
+        register.style.display = 'none';
+    } else {
+        login.style.display = 'inline-block';
+        register.style.display = 'inline-block';
+        logout.style.display = 'none';
+        profile.style.display = 'none';
+        tweet.style.display = 'none';
+    }
+}

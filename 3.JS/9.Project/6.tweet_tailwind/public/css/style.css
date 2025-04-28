@@ -1,11 +1,13 @@
 /* 상단 네브바 디자인 */
 nav ul {
+    display: flex;
     list-style-type: none;
     padding: 0;
 }
 
 nav ul li {
-    display: inline;
+    display: flex;
+    justify-content: space-between;
     margin-right: 10px;
 }
 
@@ -59,3 +61,4 @@ nav ul li {
 textarea {
     width: 100%;
 }
+

@@ -4,16 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div id="menuContainer">
-        <nav>
-            <a href="/home">Home</a>
-            <a href="/login">Login</a>
-            <a href="/register">Register</a>
-        </nav>
-    </div>
+    <nav>
+        <ul>
+            <li id="home"><a href="index.html">Home</a></li>
+            <li id="login"><a href="login.html">Login</a></li>
+            <li id="logout"><a href="#" onclick="logout()">Logout</a></li>
+            <li id="profile"><a href="profile.html">Profile</a></li>
+            <li id="tweet"><a href="tweet.html">Tweet</a></li>
+            <li id="register"><a href="register.html">Register</a></li>
+        </ul>
+    </nav>
+    
     <h1>Register</h1>
     <form id="registerForm">
         <label for="nameInput">사용자 이름</label>
@@ -25,7 +29,6 @@
         <button type="submit">회원가입</button>
     </form>
     
-    <script src="js/common.js"></script>
     <script src="js/register.js"></script>
 </body>
 </html>
