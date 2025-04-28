@@ -6,11 +6,6 @@ const path = require('path');
 
 const app = express();
 
-// 미션
-// 1. 세션 연동한다.
-// 2. 로그인 성공한다.
-// 3. 로그인한 사용자로 글 작성한다.
-
 // 미들웨어
 app.use(morgan('dev'));
 app.use(express.json()); // req.body 안에 프런트엔드에서 보낸 json 이 담긴다.
@@ -24,7 +19,6 @@ app.use(session({
 app.use(express.static('public'));
 
 // db 연결
-// const db = new sqlite3.Database('database.db');
 const db = new sqlite3.Database('database.db', (err) => {
     if (err) {
         console.error('DB연결 실패');
@@ -141,6 +135,11 @@ app.post('/api/unlike/:tweet_id', loginRequired, (req, res) => {
 
     res.json({message: '성공'});
 });
+
+app.get('/api/edit', loginRequired, (req, res) => {
+    const user = req.session.user;
+    res.json(user);
+})
 
 // 메인 API <--
 

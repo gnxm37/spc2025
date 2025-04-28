@@ -16,3 +16,18 @@ function showFlash(message, type='success') {
         <li class="${type}">${message}</li>
     `;
 }
+
+document.addEventListener('DOMContentLoaded', async() => {
+    const usernameEdit = document.getElementById('usernameEdit');
+    const emailEdit = document.getElementById('emailEdit');
+
+    const response = await fetch('/api/edit', {
+        method: 'GET'
+    });
+    const user = await response.json();
+    usernameEdit.innerHTML = `
+        <strong>사용자 이름 : </strong>${user.username}
+        <strong>이메일 : </strong>${user.email}
+    `;
+
+})

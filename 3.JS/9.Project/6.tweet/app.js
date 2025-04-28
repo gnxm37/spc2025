@@ -79,8 +79,6 @@ app.get('/api/tweets', (req, res) => {
     `;
 
     db.all(query, [], (err, tweets) => {
-        // 아래 내용을 줄때, 이거 이 요청자가 좋아한건지 같이 줄수 없을까??
-        // 로그인 안했을수도 있고, 했을수도 있음.
         if (req.session.user) {
             const userId = req.session.user.id;
 
