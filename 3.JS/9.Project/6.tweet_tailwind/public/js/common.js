@@ -10,13 +10,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (count == 0){
         userinfoDiv.innerHTML = `
-            <h2>프로필</h2>
+            <h2 class="display-6">프로필</h2>
             <p id="userinfoEdit">        
             <strong>사용자 이름 : </strong>${user.username}
             <br><br>
             <strong>이메일 : </strong>${user.email}
             </p>
-            <a href="#" onclick="edit()">프로필 수정</a>
+            <a href="#" onclick="edit()" class="text-decoration-none">프로필 수정</a>
         `;
     }
     buttons();
@@ -53,14 +53,14 @@ async function edit() {
 
     if(response.ok) {
         userinfoDiv.innerHTML = `
-            <h2>프로필 편집</h2>
+            <h2 class="display-6">프로필 편집</h2>
             <form>
                 <label class="form-label" for="username">사용자 이름</label>
                 <input class="form-control" id="username" name="username" required="" type="text" value=${user.username}>
                 <br>
                 <label class="form-label" for="email">이메일</label>
                 <input class="form-control" id="email" name="email" required="" type="text" value=${user.email}><br>
-                <button type="submit" onclick="save(event)">저장</button>
+                <button type="submit" onclick="save(event)" class="btn btn-primary">저장</button>
             </form>
         `;
     } else {
@@ -98,7 +98,7 @@ async function save(event) {
     if (response.ok) {
         // 프로필 갱신 후 바로 업데이트
         userinfoDiv.innerHTML = `
-            <h2>프로필</h2>
+            <h2 class="display-6">프로필</h2>
             <p id="userinfoEdit">
                 <strong>사용자 이름 : </strong>${user.username}
                 <br><br>

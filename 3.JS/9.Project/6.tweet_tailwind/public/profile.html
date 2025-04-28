@@ -7,18 +7,42 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <nav>
-        <ul>
-            <li id="home"><a href="index.html">Home</a></li>
-            <li id="login"><a href="login.html">Login</a></li>
-            <li id="logout"><a href="#" onclick="logout()">Logout</a></li>
-            <li id="profile"><a href="profile.html">Profile</a></li>
-            <li id="tweet"><a href="tweet.html">Tweet</a></li>
-            <li id="register"><a href="register.html">Register</a></li>
-        </ul>
-    </nav>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li id="home" class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                </li>
+                <li id="login" class="nav-item">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
+                <li id="logout" class="nav-item">
+                    <a class="nav-link" href="#" onclick="logout()">Logout</a>
+                </li>
+                <li id="profile" class="nav-item">
+                    <a class="nav-link" href="profile.html">Profile</a>
+                </li>
+                <li id="tweet" class="nav-item">
+                    <a class="nav-link" href="tweet.html">Tweet</a>
+                </li>
+                <li id="register" class="nav-item">
+                    <a class="nav-link" href="register.html">Register</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    
+    <div id="userinfoDiv" class="m-2 p-2"></div>
 
-    <div id="userinfoDiv"></div>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>    
 
     <script src="js/common.js"></script>
 

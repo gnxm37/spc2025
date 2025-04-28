@@ -1,28 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>내가 만드는 나만의 트위터</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <nav>
-        <ul>
-            <li id="home"><a href="index.html">Home</a></li>
-            <li id="login"><a href="login.html">Login</a></li>
-            <li id="logout"><a href="#" onclick="logout()">Logout</a></li>
-            <li id="profile"><a href="profile.html">Profile</a></li>
-            <li id="tweet"><a href="tweet.html">Tweet</a></li>
-            <li id="register"><a href="register.html">Register</a></li>
-        </ul>
-    </nav>
-
-    <h1>나만의 Tweet</h1>
-
-    <div id="tweets"><!-- 동적으로 불러와서 채울 예정 --></div>
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
     
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li id="home" class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                </li>
+                <li id="login" class="nav-item">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
+                <li id="logout" class="nav-item">
+                    <a class="nav-link" href="#" onclick="logout()">Logout</a>
+                </li>
+                <li id="profile" class="nav-item">
+                    <a class="nav-link" href="profile.html">Profile</a>
+                </li>
+                <li id="tweet" class="nav-item">
+                    <a class="nav-link" href="tweet.html">Tweet</a>
+                </li>
+                <li id="register" class="nav-item">
+                    <a class="nav-link" href="register.html">Register</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    
+      <div class="p-1 m-1">
+          <h1 class="display-6">나만의 Tweet</h1>
+          <div id="tweets"><!-- 동적으로 불러와서 채울 예정 --></div>
+      </div>
+    
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>    
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> -->
     <script src="js/common.js"></script>
     <script src="js/index.js"></script>
+    
+
 </body>
+
 </html>

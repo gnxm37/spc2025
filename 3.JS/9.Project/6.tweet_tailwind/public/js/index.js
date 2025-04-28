@@ -39,23 +39,24 @@ async function renderTweets() {
         const div = document.createElement('div');
         div.className = 'tweet'
         div.innerHTML = `
-            <div class="tweet-body-row">
+        <div class="border border-dark p-2 m-2">
+            <div class="d-flex justify-content-between">
                 <p>${tweet.content}</p>
             </div>
-            <div class="tweet-author">
+            <div class="d-flex justify-content-between">
                 <p>- ${tweet.username} -<p>
             </div>
-            <div class="tweet-action">
+            <div class="d-flex justify-content-between">
             ${tweet.liked_by_current_user ? `
-                <button onclick="unlikeTweet(${tweet.id})">좋아요 취소</button>
-                <p>좋아요수: ${tweet.likes_count}</p>
+                <button onclick="unlikeTweet(${tweet.id})" class="btn btn-danger">좋아요 취소</button>
+                <p>좋아요수 : ${tweet.likes_count}</p>
             ` : `
-                <button onclick="likeTweet(${tweet.id})">좋아요</button>
-                <p>좋아요수: ${tweet.likes_count}</p>
+                <button onclick="likeTweet(${tweet.id})" class="btn btn-success">좋아요</button>
+                <p>좋아요수 : ${tweet.likes_count}</p>
             `}
 
             </div>
-
+        </div>
         `
         tweetsDiv.appendChild(div);
     })
