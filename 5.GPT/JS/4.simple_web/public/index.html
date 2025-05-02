@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #questionInput {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+            /* 입력창의 배경색 */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            /* 전환 효과 추가 */
+        }
+
+        #questionInput:focus {
+            border-color: #0066cc;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 102, 204, 0.5);
+            /* 포커스 시 그림자 효과 */
+        }
+
+        /* 추가 스타일 - 플라이스홀더 텍스트 */
+        #questionInput::placeholder {
+            color: #aaa;
+            /* 플라이스홀더 텍스트 색상 */
+            font-style: italic;
+            /* 플라이스홀더 텍스트 스타일 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chat-container">
+        <h1>AI 챗봇</h1>
+        <div id="chatContainer">
+            <p>대화를 시작해보세요.</p>
+        </div>
+        <input type="text" id="questionInput" placeholder="질문을 입력하세요.">
+        <button type="submit" id="sendButton">질문 전송</button>
+        <button type="submit" id="sendButtonStream">스트림 전송</button>
+    </div>
+
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const questionInput = document.getElementById('questionInput');
+        buttonClick(questionInput);
+        buttonClickStream(questionInput);
+    });
+    
+    function buttonClick(questionInput) {
+            document.getElementById('sendButton').addEventListener('click', async(event) => {
+                event.preventDefault(); 
+                const question = questionInput.value; 
+                console.log('질문 :', question);
+                
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ question: question })
+                });
+                
+                const answer = await response.json(); 
+                console.log('대답 :', answer);
+                questionInput.value = '';
+            });
+        }
+
+    function buttonClickStream(questionInput) {
+            document.getElementById('sendButtonStream').addEventListener('click', async (event) => {
+                event.preventDefault(); 
+                const question = questionInput.value; 
+                console.log('질문 :', question);
+                
+                const response = await fetch('/api/chat-sendQuestionStream', {
+                    method: 'GET'
+                });
+                
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+                let result = '';
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    result += decoder.decode(value, { stream: true });
+                    console.log('대답 :', result);
+                }
+                
+                questionInput.value = '';
+            })
+    };
+
+</script>
+
+</html>

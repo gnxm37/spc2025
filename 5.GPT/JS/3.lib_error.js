@@ -12,18 +12,34 @@ const openai = new OpenAI({
 });
 
 
-
 async function getChatGPTResponse(userInput) {
-    const response = await openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
-        messages: [
-            { role: "system", content: "you are a highly skilled pianist." },
-            // { role: "system", content: "you are a highly skilled software engineer." },
-            { role: "user", content: userInput }
-        ],
-        temperature: 0.7
-    });
-    return response.choices[0].message.content;
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: [
+                { role: "system", content: "you are a highly skilled pianist." },
+                // { role: "system", content: "you are a highly skilled software engineer." },
+                { role: "user", content: userInput }
+            ],
+            temperature: 0.7
+        });
+        return response.choices[0].message.content;
+        
+    } catch (error) {
+        if(error.status){
+            const status = error.status;
+            if (status === 429){
+                console.error("Error: 요청 한도 초과 (크레딧 부족)");
+            } else if (status === 401){
+                console.error("Error: 해당 키에 권한이 없습니다.");
+            } else if (status === 403){
+                console.error("Error: 해당 모델을 이용할 권한이 없습니다.");
+            } else {
+                console.error(`알 수 없는 오류입니다. ${status} - ${error.body}`);
+            }
+        }
+    }
+    
 }
 
 async function chatWithUser() {
