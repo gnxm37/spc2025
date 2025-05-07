@@ -10,7 +10,6 @@ async function getChatGPTResponse(userInput) {
         model: "gpt-3.5-turbo",
         messages: [
             { role: "system", content: "you are a highly skilled pianist." },
-            // { role: "system", content: "you are a highly skilled software engineer." },
             { role: "user", content: userInput }
         ],
         temperature: 0.7

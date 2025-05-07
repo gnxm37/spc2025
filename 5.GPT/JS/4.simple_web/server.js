@@ -10,7 +10,23 @@ const openai = new OpenAI({
 
 const app = express();
 
-app.use(morgan('dev'));
+(async () => {
+    try {
+        const question = "Hello, how are you?";
+        const response = await openai.chat.completions.create({
+            model: 'gpt-3.5-turbo',
+            messages: [
+                { role: 'system', content: 'You are a helpful assistant.' },
+                { role: 'user', content: question }
+            ],
+        });
+
+        const gptResponse = response.choices[0].message.content;
+        console.log('OpenAI GPT response:', gptResponse);
+    } catch (error) {
+        console.error('Error communicating with OpenAI:', error);
+    }
+})();
 app.use(express.static('public'));
 app.use(express.json());
 
