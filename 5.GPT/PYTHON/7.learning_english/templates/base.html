@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GPT와 함께하는 영어학습 플랫폼</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/styles.css') }}">
 </head>
 <body>
     <header>
@@ -11,14 +12,13 @@
         <nav>
             <ul>
                 {% for grade in grades %}
-                    <li>{{ grade }}학년</li>
+                    <li><a href="{{ url_for('grade', grade=grade) }}">{{ grade }}학년</a></li>
                 {% endfor %}
             </ul>
         </nav>
     </header>
     <main>
-        {% block content %}
-        {% endblock %}
+        {% block content %}{% endblock %}
     </main>
     <footer>
         <p>&copy; 2025 ChatGPT English Learning</p>
