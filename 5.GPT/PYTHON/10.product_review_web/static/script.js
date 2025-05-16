@@ -10,6 +10,19 @@ const scoreSuffix = {
     ja: '点'
 };
 
+// UI 텍스트 다국어
+const uiText = {
+    aiSummary: { ko: 'AI 요약', en: 'AI Summary', ja: 'AI要約' },
+    writeReview: { ko: '상품 후기 작성', en: 'Write a Product Review', ja: '商品レビューを書く' },
+    rating: { ko: '평점', en: 'Rating', ja: '評価' },
+    reviewContent: { ko: '후기 내용', en: 'Review Content', ja: 'レビュー内容' },
+    submit: { ko: '후기 등록', en: 'Submit Review', ja: 'レビュー登録' },
+    reviewList: { ko: '상품 후기 목록', en: 'Product Reviews', ja: '商品レビュー一覧' },
+    edit: { ko: '수정', en: 'Edit', ja: '編集' },
+    delete: { ko: '삭제', en: 'Delete', ja: '削除' },
+    noReview: { ko: '아직 등록된 후기가 없습니다.', en: 'No reviews yet.', ja: 'まだレビューがありません。' }
+};
+
 let currentLang = localStorage.getItem('lang') || 'ko';
 document.getElementById('lang-select').value = currentLang;
 
@@ -47,6 +60,25 @@ async function renderDynamicLang() {
         summary = (await summaryTrRes.json()).summary || '';
     }
 
+    // === UI 텍스트 번역 ===
+    // AI 요약 제목
+    const aiSummaryTitle = document.querySelector('.text-lg.font-bold.text-teal-700.mb-2');
+    if (aiSummaryTitle) {
+        aiSummaryTitle.textContent = uiText.aiSummary[currentLang];
+    }
+    document.querySelector('h1.text-2xl.font-bold').textContent = uiText.writeReview[currentLang];
+    document.querySelector('label[for="review-text"]').textContent = uiText.reviewContent[currentLang];
+    document.querySelector('label.block.font-semibold.mb-2.text-gray-700').textContent = uiText.rating[currentLang];
+    document.getElementById('submit-button').textContent = uiText.submit[currentLang];
+    document.querySelector('h2.text-xl.font-bold').textContent = uiText.reviewList[currentLang];
+
+    // 별점 라벨 텍스트도 변경
+    const ratingLabels = document.querySelectorAll('.flex.flex-row label');
+    ratingLabels.forEach((label, idx) => {
+        const span = label.querySelector('span.text-xs');
+        if (span) span.textContent = ratingTextMap[currentLang][idx];
+    });
+
     // 3. 후기 목록 렌더링
     const reviewList = document.querySelector('.divide-y');
     reviewList.innerHTML = (reviews || []).map(review => {
@@ -62,13 +94,13 @@ async function renderDynamicLang() {
                     <span class="text-gray-700 font-semibold">${rating}${suffix}</span>
                     <span class="text-gray-400 text-xs ml-2">${review.created_at}</span>
                     <span class="text-xs text-gray-500 ml-2">${ratingText}</span>
-                    <button class="edit-review-btn text-blue-500 text-xs ml-2 underline" data-id="${review.id}">${currentLang === 'ko' ? '수정' : currentLang === 'en' ? 'Edit' : '編集'}</button>
-                    <button class="delete-review-btn text-red-500 text-xs ml-1 underline" data-id="${review.id}">${currentLang === 'ko' ? '삭제' : currentLang === 'en' ? 'Delete' : '削除'}</button>
+                    <button class="edit-review-btn text-blue-500 text-xs ml-2 underline" data-id="${review.id}">${uiText.edit[currentLang]}</button>
+                    <button class="delete-review-btn text-red-500 text-xs ml-1 underline" data-id="${review.id}">${uiText.delete[currentLang]}</button>
                 </div>
                 <div class="text-gray-800 text-base mt-1">${review.review}</div>
             </div>
         `;
-    }).join('') || `<div class="text-gray-400 text-center py-8">${currentLang === 'ko' ? '아직 등록된 후기가 없습니다.' : currentLang === 'en' ? 'No reviews yet.' : 'まだレビューがありません。'}</div>`;
+    }).join('') || `<div class="text-gray-400 text-center py-8">${uiText.noReview[currentLang]}</div>`;
 
     // 4. AI 요약 렌더링
     document.querySelector('.text-base.text-gray-800.font-semibold').textContent = summary;
