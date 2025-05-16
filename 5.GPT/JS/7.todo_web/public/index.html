@@ -1,31 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo App</title>
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+<body class="bg-gray-100 min-h-screen flex items-left justify-left">
     <div class="bg-white shadow-md rounded-lg p-6 w-full max-w-md">
         <h1 class="text-2xl font-bold text-center mb-4">Todo App</h1>
         <div class="flex items-center mb-4">
-            <input 
-                type="text" 
-                id="todoInput" 
-                placeholder="Enter a new todo" 
-                class="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-            <button 
-                onclick="addTodo()" 
-                class="ml-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-            >
+            <input type="text" id="todoInput" placeholder="Enter a new todo"
+                class="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button onclick="addTodo()" class="ml-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
                 Add
             </button>
         </div>
         <ul id="todoList" class="space-y-2">
             <!-- Todo items will be dynamically added here -->
         </ul>
+    </div>
+
+    <!-- Chatbot Icon -->
+    <div class="fixed bottom-6 right-6 bg-blue-500 text-white p-4 rounded-full shadow-lg cursor-pointer hover:bg-blue-600"
+        id="chatbotIcon">
+        <i class="bi bi-chat-dots text-2xl"></i>
+    </div>
+
+    <!-- Chatbot Window -->
+    <div class="fixed bottom-20 right-6 bg-white shadow-lg rounded-lg w-80 hidden flex-col" id="chatbotWindow">
+        <!-- Header -->
+        <div class="bg-blue-500 text-white px-4 py-2 flex justify-between items-center rounded-t-lg">
+            <span class="font-bold">Chatbot</span>
+            <button id="closeChatbot" class="text-white hover:text-gray-200">&times;</button>
+        </div>
+        <!-- Messages -->
+        <div class="p-4 h-64 overflow-y-auto" id="chatbotMessage">
+            <!-- Messages will be dynamically added here -->
+        </div>
+        <!-- Input -->
+        <div class="flex items-center border-t border-gray-200 p-2">
+            <input type="text" id="chatbotInput" placeholder="Type a message..."
+                class="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button id="sendMessage"
+                class="ml-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Send</button>
+        </div>
     </div>
 
     <script>
@@ -38,21 +61,21 @@
                 const li = document.createElement('li');
                 li.className = "flex items-center justify-between bg-gray-100 p-2 rounded-lg shadow-sm";
                 li.innerHTML = `
-                    <div class="flex items-center">
-                        <input 
-                            type="checkbox" 
-                            ${todo.completed ? 'checked' : ''} 
-                            onchange="toggleTodo(${todo.id}, this.checked)" 
-                            class="mr-2"
-                        >
-                        <span class="${todo.completed ? 'line-through text-gray-500' : ''}">${todo.title}</span>
-                    </div>
-                    <button 
-                        onclick="deleteTodo(${todo.id})" 
-                        class="text-red-500 hover:text-red-700"
-                    >
-                        Delete
-                    </button>
+            <div class="flex items-center">
+                <input 
+                type="checkbox" 
+                ${todo.completed ? 'checked' : ''} 
+                onchange="toggleTodo(${todo.id}, this.checked)" 
+                class="mr-2"
+                >
+                <span class="${todo.completed ? 'line-through text-gray-500' : ''}">${todo.title}</span>
+                </div>
+                <button 
+                onclick="deleteTodo(${todo.id})" 
+                class="text-red-500 hover:text-red-700"
+                >
+                Delete
+                </button>
                 `;
                 todoList.appendChild(li);
             });
@@ -85,7 +108,100 @@
             fetchTodos();
         }
 
+        document.getElementById('todoInput').addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                addTodo();
+            }
+            fetchTodos();
+        });
+
         fetchTodos();
+
+
+        // Toggle chatbot window visibility
+        const chatbotIcon = document.getElementById('chatbotIcon');
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        const closeChatbot = document.getElementById('closeChatbot');
+
+        chatbotIcon.addEventListener('click', () => {
+            chatbotWindow.classList.toggle('hidden');
+        });
+
+        closeChatbot.addEventListener('click', () => {
+            chatbotWindow.classList.add('hidden');
+        });
+
+        document.getElementById('chatbotInput').addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                document.getElementById('sendMessage').click();
+            }
+        });
+
+        // Send message to chatbot
+        document.getElementById('sendMessage').addEventListener('click', async () => {
+            const input = document.getElementById('chatbotInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            // Display user message
+            const messageContainer = document.getElementById('chatbotMessage');
+            const userMessage = document.createElement('div');
+            userMessage.className = "bg-blue-100 text-blue-800 p-2 rounded-lg mb-2";
+            userMessage.textContent = message;
+            messageContainer.appendChild(userMessage);
+            input.value = '';
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+
+            // Send message to server
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: message })
+                });
+                const data = await response.json();
+
+                // Display chatbot response
+                const botMessage = document.createElement('div');
+                botMessage.className = "bg-gray-100 text-gray-800 p-2 rounded-lg mb-2";
+                botMessage.textContent = data.answer;
+                messageContainer.appendChild(botMessage);
+                messageContainer.scrollTop = messageContainer.scrollHeight;
+
+                // Refresh todos if an item was added or deleted
+                if (data.answer.includes('추가되었습니다') || data.answer.includes('삭제되었습니다') || data.answer.includes('미완료되었습니다') || data.answer.includes('완료되었습니다') || data.answer.includes('변경되었습니다')) {
+                    fetchTodos(); // 투두리스트 새로고침
+                }
+            } catch (error) {
+                console.error('Error communicating with chatbot:', error);
+            }
+        });
+
+        // 완료한 투두리스트를 챗봇 내용에 추가하는 기능
+        async function addCompletedTodoToChatbot() {
+            const completedTodos = await fetch('/api/todos?completed=true');
+            const todos = await completedTodos.json();
+            const messageContainer = document.getElementById('chatbotMessage');
+            todos.forEach(todo => {
+                const botMessage = document.createElement('div');
+                botMessage.className = "bg-gray-100 text-gray-800 p-2 rounded-lg mb-2";
+                botMessage.textContent = `완료된 투두리스트: ${todo.title}`;
+                messageContainer.appendChild(botMessage);
+            });
+        }
+
+        // 미완료한 투두리스트를 챗봇 내용에 추가하는 기능
+        async function addIncompleteTodoToChatbot() {
+            const incompleteTodos = await fetch('/api/todos?completed=false');
+            const todos = await incompleteTodos.json();
+            const messageContainer = document.getElementById('chatbotMessage');
+            todos.forEach(todo => {
+                const botMessage = document.createElement('div');
+                botMessage.className = "bg-gray-100 text-gray-800 p-2 rounded-lg mb-2";
+                botMessage.textContent = `미완료된 투두리스트: ${todo.title}`;
+                messageContainer.appendChild(botMessage);
+            });
+        }
+
     </script>
 </body>
-</html>
