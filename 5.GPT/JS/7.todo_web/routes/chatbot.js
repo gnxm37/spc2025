@@ -49,7 +49,7 @@ router.post('/', async (req, res) => {
         }
 
         // "청소하기를 추가해줘"와 같은 명령 처리
-        const addMatch = question.match(/(.+?)를 추가/);
+        const addMatch = question.match(/(.+?)를 추가/) || question.match(/(.+?)을 추가/);
         if (addMatch) {
             const newTodoTitle = addMatch[1].trim(); // 추가할 항목의 제목 추출
             await database.createTodo(newTodoTitle); // 데이터베이스에 새 항목 추가
@@ -113,7 +113,7 @@ router.post('/', async (req, res) => {
             const completedTodos = todos.filter(todo => todo.completed);
             if (completedTodos.length > 0) {
                 const list = completedTodos.map((todo, idx) => `${idx + 1}. ${todo.title}`).join('\n');
-                return res.json({ answer: `완료한 항목입니다:\n${list}\n` });
+                return res.json({ answer: `완료한 항목입니다:\n\n${list}\n\n` });
             } else {
                 return res.json({ answer: '완료한 항목이 없습니다.' });
             }
@@ -125,7 +125,7 @@ router.post('/', async (req, res) => {
             const incompleteTodos = todos.filter(todo => !todo.completed);
             if (incompleteTodos.length > 0) {
                 const list = incompleteTodos.map((todo, idx) => `${idx + 1}. ${todo.title}`).join('\n');
-                return res.json({ answer: `미완료한 항목입니다:\n${list}\n` });
+                return res.json({ answer: `미완료한 항목입니다:\n\n${list}\n\n` });
             } else {
                 return res.json({ answer: '미완료한 항목이 없습니다.' });
             }
